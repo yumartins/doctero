@@ -1,0 +1,14 @@
+{
+  "name": "@apps/web",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "author": "Yuri Martins",
+  "private": false,
+  "scripts": {
+    "web": "next",
+    "build:web": "next build && next export"
+  },
+  "devDependencies": {
+    "babel-plugin-inline-react-svg": "^1.1.2"
+  }
+}

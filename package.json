@@ -4,7 +4,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "commit": "cz"
+    "web": "yarn workspace @apps/web run web",
+    "tsc": "tsc --skipLibCheck",
+    "commit": "cz",
+    "prebuild": "bash .bin/run.sh core prebuild $*"
   },
   "repository": "https://github.com/yumartins/doctero.git",
   "workspaces": {
