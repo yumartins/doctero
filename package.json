@@ -4,5 +4,14 @@
   "main": "index.js",
   "repository": "https://github.com/yumartins/doctero.git",
   "author": "yumartins <develop@yumartins.com.br>",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "core/*"
+    ]
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
 }

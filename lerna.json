@@ -1,0 +1,14 @@
+{
+  "packages": [
+    "apps/*",
+    "core/*"
+  ],
+  "version": "0.0.1",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "version": {
+      "allowBranch": "master"
+    }
+  }
+}
