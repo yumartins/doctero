@@ -1,17 +1,35 @@
 {
   "name": "doctero",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/yumartins/doctero.git",
   "author": "yumartins <develop@yumartins.com.br>",
   "license": "MIT",
+  "private": true,
+  "scripts": {
+    "commit": "cz"
+  },
+  "repository": "https://github.com/yumartins/doctero.git",
   "workspaces": {
     "packages": [
       "apps/*",
       "core/*"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "commitizen": "^4.2.3",
+    "husky": "^4.3.8",
     "lerna": "^3.22.1"
+  },
+  "dependencies": {
+    "next": "^10.0.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "styled-components": "^5.2.1",
+    "swr": "^0.4.1"
   }
 }

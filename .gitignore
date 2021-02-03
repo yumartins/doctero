@@ -1,2 +1,6 @@
+.env
+
+dist/
+.next/
+
 node_modules
-dist
