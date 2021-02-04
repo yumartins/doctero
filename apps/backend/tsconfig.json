@@ -1,8 +1,5 @@
 {
   "extends": "../../tsconfig.json",
-  "exclude": [
-    "./src/database/migrations"
-  ],
   "compilerOptions": {
     "module": "CommonJS"
   }
