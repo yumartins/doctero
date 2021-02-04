@@ -1,13 +1,11 @@
-import Router from '@koa/router';
+import cors from '@koa/cors';
 import Koa from 'koa';
 
+import router from './routes';
+
 const app = new Koa();
-const router = new Router();
 
-router.get('/', async (ctx) => {
-  ctx.body = 'Hello';
-});
-
+app.use(cors());
 app.use(router.routes());
 
 app.listen(3000);
