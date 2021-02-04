@@ -2,13 +2,14 @@ const knexfile = {
   client: 'pg',
   connection: {
     user: 'yumartins',
+    host: '127.0.0.1',
     database: 'doctero',
-    password: '0000',
+    password: 'postgres',
   },
 
   migrations: {
-    tableName: 'migrations',
     directory: `${__dirname}/src/database/migrations`,
+    extension: 'ts',
   },
 
   useNullAsDefault: true,

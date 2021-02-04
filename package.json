@@ -9,7 +9,8 @@
     "commit": "cz",
     "backend": "yarn workspace @apps/backend run server",
     "prebuild": "bash .bin/run.sh core prebuild $*",
-    "backend:seed": "yarn workspace @apps/backend run knex:seed",
+    "backend:seed:run": "yarn workspace @apps/backend run knex:seed:run",
+    "backend:seed:make": "yarn workspace @apps/backend run knex:seed:make",
     "backend:migrate:make": "yarn workspace @apps/backend run knex:migrate:make",
     "backend:migrate:latest": "yarn workspace @apps/backend run knex:migrate:latest"
   },

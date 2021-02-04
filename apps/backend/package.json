@@ -6,9 +6,10 @@
   "private": false,
   "scripts": {
     "server": "ts-node-dev --ignore-watch node_modules src/index.ts",
-    "knex:seed": "knex --knexfile knexfile.ts seed:run",
-    "knex:migrate:make": "knex --knexfile knexfile.ts migrate:make",
-    "knex:migrate:latest": "knex --knexfile knexfile.ts migrate:latest"
+    "knex:seed:run": "knex seed:run --knexfile knexfile.ts",
+    "knex:seed:make": "knex seed:make --knexfile knexfile.ts -x ts seed",
+    "knex:migrate:make": "knex migrate:make --knexfile knexfile.ts -x ts migrations",
+    "knex:migrate:latest": "knex migrate:latest --knexfile knexfile.ts"
   },
   "dependencies": {
     "express": "^4.17.1",
