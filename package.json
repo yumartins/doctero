@@ -7,7 +7,11 @@
     "web": "yarn workspace @apps/web run web",
     "tsc": "tsc --skipLibCheck",
     "commit": "cz",
-    "prebuild": "bash .bin/run.sh core prebuild $*"
+    "backend": "yarn workspace @apps/backend run server",
+    "prebuild": "bash .bin/run.sh core prebuild $*",
+    "backend:seed": "yarn workspace @apps/backend run knex:seed",
+    "backend:migrate:make": "yarn workspace @apps/backend run knex:migrate:make",
+    "backend:migrate:latest": "yarn workspace @apps/backend run knex:migrate:latest"
   },
   "repository": "https://github.com/yumartins/doctero.git",
   "workspaces": {

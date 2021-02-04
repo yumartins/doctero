@@ -5,12 +5,16 @@
   "author": "Yuri Martins",
   "private": false,
   "scripts": {
-    "backend": "ts-node-dev --ignore-watch node_modules src/index.ts"
+    "server": "ts-node-dev --ignore-watch node_modules src/index.ts",
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "knex:migrate:make": "knex --knexfile knexfile.ts migrate:make",
+    "knex:migrate:latest": "knex --knexfile knexfile.ts migrate:latest"
   },
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.17",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "postgres": "^1.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
