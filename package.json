@@ -12,7 +12,8 @@
     "backend:seed:run": "yarn workspace @apps/backend run knex:seed:run",
     "backend:seed:make": "yarn workspace @apps/backend run knex:seed:make",
     "backend:migrate:make": "yarn workspace @apps/backend run knex:migrate:make",
-    "backend:migrate:latest": "yarn workspace @apps/backend run knex:migrate:latest"
+    "backend:migrate:latest": "yarn workspace @apps/backend run knex:migrate:latest",
+    "backend:migrate:rollback": "yarn workspace @apps/backend run knex:migrate:rollback"
   },
   "repository": "https://github.com/yumartins/doctero.git",
   "workspaces": {
