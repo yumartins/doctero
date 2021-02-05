@@ -1,13 +1,9 @@
 import Router from '@koa/router';
 
-import knex from './database';
+import { users } from './controllers';
 
 const router = new Router();
 
-router.get('/users', async (ctx) => {
-  const res = await knex('users');
-
-  ctx.body = res;
-});
+router.get('/users', users);
 
 export default router;
