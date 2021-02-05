@@ -45,6 +45,18 @@ const users = {
         ctx.body = { ...user[0] };
       });
   },
+
+  delete: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+    await next();
+
+    const {
+      id,
+    } = ctx.params;
+
+    await knex('users')
+      .where({ id })
+      .del();
+  },
 };
 
 export default users;

@@ -8,5 +8,6 @@ const router = new Router<DefaultState, Context>();
 router.get('/users', users.list);
 router.post('/users', users.create);
 router.put('/users/:id', users.update);
+router.delete('/users/:id', users.delete);
 
 export default router;
