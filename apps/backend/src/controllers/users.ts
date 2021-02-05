@@ -56,6 +56,8 @@ const users = {
     await knex('users')
       .where({ id })
       .del();
+
+    ctx.status = 200;
   },
 };
 
