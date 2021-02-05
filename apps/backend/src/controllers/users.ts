@@ -20,11 +20,29 @@ const users = {
       .insert({ name })
       .returning('*')
       .then((user) => {
-        ctx.body = {
-          ...user[0],
-        };
+        ctx.body = { ...user[0] };
 
         ctx.status = 201;
+      });
+  },
+
+  update: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+    await next();
+
+    const {
+      id,
+    } = ctx.params;
+
+    const {
+      name,
+    } = ctx.request.body;
+
+    await knex('users')
+      .update({ name })
+      .where({ id })
+      .returning('*')
+      .then((user) => {
+        ctx.body = { ...user[0] };
       });
   },
 };
