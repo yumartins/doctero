@@ -1,4 +1,4 @@
-import { Context } from 'koa';
+import { Context, ExtendableContext } from 'koa';
 
 import knex from '../database';
 
@@ -9,16 +9,23 @@ const users = {
     ctx.body = res;
   },
 
-  create: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+  create: async (ctx: ExtendableContext, next: () => Promise<void>): Promise<void> => {
     await next();
 
-    console.log(ctx.request);
+    const {
+      name,
+    } = ctx.request.body;
 
-    // await knex('users').insert({
-    //   username,
-    // });
+    await knex('users')
+      .insert({ name })
+      .returning('*')
+      .then((user) => {
+        ctx.body = {
+          ...user[0],
+        };
 
-    ctx.status = 201;
+        ctx.status = 201;
+      });
   },
 };
 
