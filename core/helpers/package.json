@@ -1,0 +1,18 @@
+{
+  "name": "@core/helpers",
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "author": "Yuri Martins",
+  "version": "0.0.1",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "babel lib --out-dir ./dist -D --extensions '.ts,.tsx'"
+  },
+  "babel": {
+    "presets": [
+      "module:@core/babel"
+    ]
+  }
+}

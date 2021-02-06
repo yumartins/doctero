@@ -1,0 +1,20 @@
+{
+  "name": "@core/babel",
+  "main": "index.js",
+  "author": "Yuri Martins",
+  "version": "0.0.1",
+  "private": false,
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.13",
+    "@babel/register": "^7.12.13",
+    "@babel/runtime": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "babel-preset-minify": "^0.5.1"
+  }
+}
