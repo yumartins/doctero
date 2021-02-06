@@ -43,7 +43,7 @@ module.exports = {
     'jsx-a11y/media-has-caption': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
     'import/no-extraneous-dependencies': 0,
-    'no-restricted-syntax': ['error', 'FunctionExpression', 'WithStatement', "BinaryExpression[operator='in']"],
+    'no-restricted-syntax': ['error', 'WithStatement', "BinaryExpression[operator='in']"],
     camelcase: 0,
     'jsx-a11y/anchor-is-valid': ['error', {
       components: ['Link'],
@@ -53,8 +53,8 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'space-before-function-paren': ['error', {
+      named: 'ignore',
       anonymous: 'always',
-      named: 'always',
       asyncArrow: 'always',
     }],
     'space-unary-ops': [2, {
