@@ -1,7 +1,7 @@
-import knex from 'knex';
+import Sequelize from 'sequelize';
 
-import knexfile from '../../knexfile';
+import { database } from '../config';
 
-const connection = knex(knexfile);
+const connection = new Sequelize.Sequelize(database);
 
 export default connection;
