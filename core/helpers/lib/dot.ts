@@ -1,33 +1,32 @@
-import { Value } from './types';
+import { Dot } from './types';
 
-const value = ({ target, ...args }: Value): void | string => (typeof target === 'function'
-  ? target(args)
-  : target);
-
-const dot = (target, path, def = null, shouldReturnUndefined = false) => {
+const dot = ({
+  def = '',
+  path,
+  target,
+  shouldReturnUndefined = false,
+}: Dot): void | null => {
   const splited = Array.isArray(path)
     ? path
     : path.split('.');
 
   const key = splited.shift();
 
-  if (! key) {
-    return target === null
-      ? value(def)
-      : target;
-  }
-
-  const isUndefined = typeof target[key] === 'undefined';
+  const isUndefined = key && typeof target[key] === 'undefined';
 
   if (! target || isUndefined) {
     if (isUndefined && shouldReturnUndefined) {
-      return; //eslint-disable-line
+      return null;
     }
 
-    return value(def);
+    return target(def);
   }
 
-  return dot(target[key], splited, def);
+  return dot({
+    target: target[key || 0],
+    path: splited,
+    def,
+  });
 };
 
 export default dot;

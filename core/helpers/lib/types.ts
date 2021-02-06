@@ -1,4 +1,6 @@
-export interface Value {
-  args?: string,
-  target: (args: string) => void | string
+export interface Dot {
+  def?: string,
+  path: string | string[],
+  target: (args: string) => void,
+  shouldReturnUndefined?: boolean,
 }

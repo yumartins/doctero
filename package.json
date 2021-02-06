@@ -6,6 +6,8 @@
   "scripts": {
     "web": "yarn workspace @apps/web run web",
     "tsc": "tsc --skipLibCheck",
+    "clean": "bash .bin/run.sh core clean $*",
+    "build": "bash .bin/run.sh core build $*",
     "commit": "cz",
     "backend": "yarn workspace @apps/backend run server",
     "prebuild": "bash .bin/run.sh core prebuild $*",
