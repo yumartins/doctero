@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { Context, ExtendableContext } from 'koa';
 
 import knex from '../database';
@@ -14,13 +15,24 @@ const users = {
 
     const {
       name,
+      email,
+      password,
     } = ctx.request.body;
 
+    const hash = await bcrypt.hash(password, 8);
+
     await knex('users')
-      .insert({ name })
+      .insert({
+        name,
+        email,
+        password: hash,
+      })
       .returning('*')
       .then((user) => {
-        ctx.body = { ...user[0] };
+        ctx.body = {
+          ...user[0],
+          password,
+        };
 
         ctx.status = 201;
       });

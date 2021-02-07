@@ -3,8 +3,10 @@ import * as Knex from 'knex';
 import knexfile from '../../../knexfile';
 
 exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('users', (table) => {
-  table.increments('id');
-  table.text('name').unique().notNullable();
+  table.increments('id').primary();
+  table.text('name').notNullable();
+  table.text('email').unique().notNullable();
+  table.text('password').notNullable();
 
   table.timestamps(true, true);
 })
