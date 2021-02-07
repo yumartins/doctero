@@ -29,6 +29,9 @@
     "module": "esnext",
     "target": "es5",
     "baseUrl": ".",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "allowJs": true,
     "sourceMap": true,
     "declaration": true,

@@ -35,9 +35,7 @@ const users = {
 
     const logged = await knex('users').where({ email }).first();
 
-    if (email === logged.email) {
-      ctx.throw(400, 'Registered User');
-    }
+    if (email === logged.email) ctx.throw(400, 'Registered user.');
 
     await knex('users')
       .insert({

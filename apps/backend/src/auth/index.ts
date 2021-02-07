@@ -8,12 +8,12 @@ import Unauthorized from './unauthorized';
 /**
  * JWT secret.
  */
-const secret = process.env.APP_SECRET;
+const secret = process.env.B_SECRET || '';
 
 /**
  * Resolve token from header.
  */
-export const getToken = (ctx: Context): void => {
+export const getToken = (ctx: Context): string => {
   if (! ctx.headers || ! ctx.headers.authorization) {
     throw new Unauthorized();
   }
@@ -31,7 +31,7 @@ export const getToken = (ctx: Context): void => {
 /**
  * Verify JWT token.
  */
-export const verifyToken = (token: string, secrets: string): boolean => {
+export const verifyToken = (token: string, secrets: string): any => {
   try {
     return JWT.verify(token, secrets);
   } catch (e) {

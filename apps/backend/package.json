@@ -24,6 +24,7 @@
     "pg": "^8.5.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/koa": "^2.11.7",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-helmet": "^6.0.1",
