@@ -14,5 +14,8 @@
     "presets": [
       "module:@core/babel"
     ]
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0"
   }
 }
