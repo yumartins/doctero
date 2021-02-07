@@ -7,19 +7,7 @@ const users = {
   list: async (ctx: Context): Promise<void> => {
     const res = await knex('users');
 
-    ctx.body = res.map(({
-      id,
-      name,
-      email,
-      created_at,
-      updated_at,
-    }) => ({
-      id,
-      name,
-      email,
-      created_at,
-      updated_at,
-    }));
+    ctx.body = res.map(({ password, ...rest }) => rest);
   },
 
   show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
