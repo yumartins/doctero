@@ -44,7 +44,9 @@ export const verifyToken = (token: string, secrets: string): any => {
 /**
  * Generate JWT token.
  */
-export const generate = (payload: Payload): string => JWT.sign(payload, secret, { expiresIn: '7d' });
+export const generate = (payload: Payload): string => JWT.sign(payload, secret, {
+  expiresIn: '7d',
+});
 
 export {
   Forbidden,

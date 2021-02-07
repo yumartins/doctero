@@ -1,17 +1,15 @@
 import bcrypt from 'bcrypt';
 
-const rounds = process.env.APP_SALT || 8;
-
 const bcrypts = {
   hash: async (data: string): Promise<string> => {
-    const salt = bcrypt.genSaltSync(rounds);
+    const salt = bcrypt.genSaltSync(10);
 
     const crypt = bcrypt.hashSync(data, salt);
 
     return crypt;
   },
 
-  compare: (data: string, encrypted: string): boolean => {
+  compare: (data: string, encrypted: string): Promise<boolean> => {
     const match = bcrypt.compare(data, encrypted);
 
     return match;

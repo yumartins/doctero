@@ -28,22 +28,10 @@ const auth = async (ctx: ExtendableContext, next: () => Promise<void>): Promise<
     email,
   });
 
-  console.log(token);
-
-  // await knex('users')
-  //   .insert({ name })
-  //   .returning('*')
-  //   .then((user) => {
-  //     ctx.body = { ...user[0] };
-
-  //     ctx.status = 201;
-  //   });
-
   ctx.status = 200;
 
   ctx.body = {
-    email,
-    password,
+    token,
   };
 };
 

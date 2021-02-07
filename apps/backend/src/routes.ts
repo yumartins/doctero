@@ -2,14 +2,15 @@ import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
 
 import { auth, users } from './controllers';
+import { authenticaded } from './middlewares';
 
 const router = new Router<DefaultState, Context>();
 
 router.post('/auth', auth);
 
-router.get('/users', users.list);
 router.post('/users', users.create);
-router.put('/users/:id', users.update);
-router.delete('/users/:id', users.delete);
+router.get('/users', authenticaded, users.list);
+router.put('/users/:id', authenticaded, users.update);
+router.delete('/users/:id', authenticaded, users.delete);
 
 export default router;
