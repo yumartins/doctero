@@ -10,6 +10,7 @@ router.post('/auth', auth);
 
 router.post('/users', users.create);
 router.get('/users', authenticaded, users.list);
+router.get('/users/:id', authenticaded, users.show);
 router.put('/users/:id', authenticaded, users.update);
 router.delete('/users/:id', authenticaded, users.delete);
 

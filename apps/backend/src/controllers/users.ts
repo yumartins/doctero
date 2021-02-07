@@ -1,5 +1,5 @@
 import { bcrypt, remove } from '@core/helpers';
-import { Context, ExtendableContext } from 'koa';
+import { Context } from 'koa';
 
 import knex from '../database';
 
@@ -22,7 +22,19 @@ const users = {
     }));
   },
 
-  create: async (ctx: ExtendableContext, next: () => Promise<void>): Promise<void> => {
+  show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+    await next();
+
+    const {
+      id,
+    } = ctx.params;
+
+    const logged = await knex('users').where({ id }).first();
+
+    ctx.body = remove('password', logged);
+  },
+
+  create: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
     await next();
 
     const {
