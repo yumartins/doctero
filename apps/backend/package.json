@@ -13,6 +13,7 @@
     "knex:migrate:rollback": "knex migrate:rollback --knexfile knexfile.ts"
   },
   "dependencies": {
+    "@core/helpers": "*",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "jsonwebtoken": "^8.5.1",

@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import { bcrypt } from '@core/helpers';
 import { Context, ExtendableContext } from 'koa';
 
 import knex from '../database';
@@ -7,7 +7,19 @@ const users = {
   list: async (ctx: Context): Promise<void> => {
     const res = await knex('users');
 
-    ctx.body = res;
+    ctx.body = res.map(({
+      id,
+      name,
+      email,
+      created_at,
+      updated_at,
+    }) => ({
+      id,
+      name,
+      email,
+      created_at,
+      updated_at,
+    }));
   },
 
   create: async (ctx: ExtendableContext, next: () => Promise<void>): Promise<void> => {
@@ -19,7 +31,7 @@ const users = {
       password,
     } = ctx.request.body;
 
-    const hash = await bcrypt.hash(password, 8);
+    const hash = await bcrypt.hash(password);
 
     await knex('users')
       .insert({

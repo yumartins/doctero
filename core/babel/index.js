@@ -1,10 +1,8 @@
 module.exports = () => ({
   presets: [
-    '@babel/env',
+    ['@babel/preset-env', { useBuiltIns: 'usage', corejs: 3 }],
     '@babel/typescript',
-    ['minify', {
-      builtIns: false,
-    }],
+    ['minify', { builtIns: false }],
   ],
   plugins: [
     '@babel/proposal-object-rest-spread',
