@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-const rounds = process.env.B_SALT || 8;
+const rounds = process.env.APP_SALT || 8;
 
 const bcrypts = {
   hash: async (data: string): Promise<string> => {

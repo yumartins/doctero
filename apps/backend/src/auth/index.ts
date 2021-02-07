@@ -8,7 +8,7 @@ import Unauthorized from './unauthorized';
 /**
  * JWT secret.
  */
-const secret = process.env.B_SECRET || '';
+const secret = process.env.APP_SECRET || '';
 
 /**
  * Resolve token from header.
@@ -44,7 +44,7 @@ export const verifyToken = (token: string, secrets: string): any => {
 /**
  * Generate JWT token.
  */
-export const generate = (payload: Payload): string => JWT.sign(payload, secret);
+export const generate = (payload: Payload): string => JWT.sign(payload, secret, { expiresIn: '7d' });
 
 export {
   Forbidden,

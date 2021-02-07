@@ -5,7 +5,7 @@ import { getToken, verifyToken } from '../auth';
 /**
  * JWT secret.
  */
-const secret = process.env.B_SECRET || '';
+const secret = process.env.APP_SECRET || '';
 
 /**
  * Authenticaded Middlewares
