@@ -33,7 +33,7 @@
     "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "isolatedModules": true,

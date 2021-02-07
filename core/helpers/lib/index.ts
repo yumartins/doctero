@@ -7,3 +7,7 @@ export {
 export {
   default as bcrypt,
 } from './bcrypt';
+
+export {
+  default as remove,
+} from './remove';

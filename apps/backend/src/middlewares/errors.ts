@@ -6,14 +6,16 @@ import { Context } from 'koa';
 const handler = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
   try {
     await next();
-  } catch (error) {
-    ctx.status = error.status || 500;
+  } catch (err) {
+    ctx.status = err.statusCode || err.status || 500;
 
-    ctx.body = ctx.status === 500
-      ? 'Internal Server Error'
-      : ctx.body || error.message;
+    ctx.body = {
+      message: ctx.status === 500
+        ? 'Internal Server Error'
+        : ctx.body || err.message,
+    };
 
-    ctx.app.emit('error', error, ctx);
+    ctx.app.emit('error', err, ctx);
   }
 };
 

@@ -43,6 +43,7 @@ module.exports = {
     'jsx-a11y/media-has-caption': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
     'import/no-extraneous-dependencies': 0,
+    '@typescript-eslint/no-explicit-any': 'off',
     'no-restricted-syntax': ['error', 'WithStatement', "BinaryExpression[operator='in']"],
     camelcase: 0,
     'jsx-a11y/anchor-is-valid': ['error', {

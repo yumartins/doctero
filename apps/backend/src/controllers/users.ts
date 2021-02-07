@@ -1,4 +1,4 @@
-import { bcrypt } from '@core/helpers';
+import { bcrypt, remove } from '@core/helpers';
 import { Context, ExtendableContext } from 'koa';
 
 import knex from '../database';
@@ -33,6 +33,12 @@ const users = {
 
     const hash = await bcrypt.hash(password);
 
+    const logged = await knex('users').where({ email }).first();
+
+    if (email === logged.email) {
+      ctx.throw(400, 'Registered User');
+    }
+
     await knex('users')
       .insert({
         name,
@@ -41,10 +47,7 @@ const users = {
       })
       .returning('*')
       .then((user) => {
-        ctx.body = {
-          ...user[0],
-          password,
-        };
+        ctx.body = remove('password', user[0]);
 
         ctx.status = 201;
       });
@@ -59,14 +62,24 @@ const users = {
 
     const {
       name,
+      email,
+      password,
     } = ctx.request.body;
 
+    const logged = await knex('users').where({ id }).first();
+
+    const hash = password ? await bcrypt.hash(password) : logged.password;
+
     await knex('users')
-      .update({ name })
+      .update({
+        name,
+        email,
+        password: hash,
+      })
       .where({ id })
       .returning('*')
       .then((user) => {
-        ctx.body = { ...user[0] };
+        ctx.body = remove('password', user[0]);
       });
   },
 
