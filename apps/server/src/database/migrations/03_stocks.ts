@@ -2,7 +2,7 @@ import * as Knex from 'knex';
 
 import knexfile from '../../../knexfile';
 
-exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('stock', (table) => {
+exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('stocks', (table) => {
   table.increments('id').primary();
   table.text('name').notNullable();
   table.float('price').notNullable();
@@ -12,6 +12,6 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('stock
 
   table.timestamps(true, true);
 })
-  .then(() => knex.raw(knexfile.updated('stock')));
+  .then(() => knex.raw(knexfile.updated('stocks')));
 
-exports.down = async (knex: Knex): Promise<void> => knex.schema.dropTable('stock');
+exports.down = async (knex: Knex): Promise<void> => knex.schema.dropTable('stocks');
