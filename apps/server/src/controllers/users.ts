@@ -26,6 +26,10 @@ const users = {
     await next();
 
     const {
+      role,
+    } = ctx.query;
+
+    const {
       name,
       email,
       password,
@@ -33,14 +37,16 @@ const users = {
 
     const hash = await bcrypt.hash(password);
 
+    const roles = role && await knex('roles').where({ name: role }).first();
     const logged = await knex('users').where({ email }).first();
 
-    if (email === logged.email) ctx.throw(400, 'Registered user.');
+    if (email === logged?.email) ctx.throw(400, 'Registered user.');
 
     await knex('users')
       .insert({
         name,
         email,
+        role_id: roles?.id || 1,
         password: hash,
       })
       .returning('*')
