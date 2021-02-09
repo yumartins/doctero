@@ -33,6 +33,7 @@ const users = {
       name,
       email,
       password,
+      father_id,
     } = ctx.request.body;
 
     const hash = await bcrypt.hash(password);
@@ -40,7 +41,17 @@ const users = {
     const roles = role && await knex('roles').where({ name: role }).first();
     const logged = await knex('users').where({ email }).first();
 
+    /**
+     * Checks if the email is
+     * already registered in the database.
+     */
     if (email === logged?.email) ctx.throw(400, 'Registered user.');
+
+    /**
+     * Checks if the permission
+     * user "USER" is sending the key "father_id".
+     */
+    if ((! role || role === 'USER') && ! father_id) ctx.throw(400, 'Required father_id.');
 
     await knex('users')
       .insert({
@@ -48,6 +59,7 @@ const users = {
         email,
         role_id: roles?.id || 1,
         password: hash,
+        father_id: father_id || null,
       })
       .returning('*')
       .then((user) => {
