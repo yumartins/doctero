@@ -1,3 +1,4 @@
+import { bcrypt } from '@core/helpers';
 import * as Knex from 'knex';
 
 exports.seed = async (knex: Knex): Promise<void> => {
@@ -8,7 +9,7 @@ exports.seed = async (knex: Knex): Promise<void> => {
       name: 'yumartins',
       email: 'yumartins@email.com',
       role_id: 2,
-      password: '123456',
+      password: await bcrypt.hash('123456'),
     },
   ]);
 };
