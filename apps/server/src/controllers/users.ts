@@ -5,9 +5,28 @@ import knex from '../database';
 
 const users = {
   list: async (ctx: Context): Promise<void> => {
-    const res = await knex('users');
+    const {
+      role,
+      father,
+    } = ctx.query;
 
-    ctx.body = res.map(({ password, ...rest }) => rest);
+    const roles = role && await knex('roles').where({ name: role }).first();
+
+    /**
+     * Checks if the permission
+     * user "USER" is sending the query "father_id".
+     */
+    if ((! role || role === 'USER') && ! father) ctx.throw(400, 'The "father" query is required.');
+
+    await knex('users')
+      .where({ role_id: roles?.id || 1 })
+      .andWhere({ father_id: father || null })
+      .returning('*')
+      .then((user) => {
+        const usered = user.map(({ password, ...rest }) => rest);
+
+        ctx.body = usered;
+      });
   },
 
   show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
