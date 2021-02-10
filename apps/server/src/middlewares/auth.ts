@@ -18,10 +18,7 @@ const authenticaded = async (ctx: Context, next: () => Promise<void>): Promise<v
    */
   const decoded = verifyToken(token, secret);
 
-  ctx.state.user = {
-    id: decoded.id,
-    email: decoded.email,
-  };
+  ctx.state.user = decoded;
 
   return next();
 };

@@ -26,6 +26,7 @@ const auth = async (ctx: ExtendableContext, next: () => Promise<void>): Promise<
   const token = generate({
     id: user.id,
     email,
+    father_id: user.father_id,
   });
 
   ctx.status = 200;

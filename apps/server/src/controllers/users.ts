@@ -10,7 +10,7 @@ const users = {
     } = ctx.state;
 
     await knex('users')
-      .where({ father_id: user.id })
+      .where({ father_id: user.father_id || user.id })
       .returning('*')
       .then((us) => {
         const usered = us.map(({ password, ...rest }) => rest);
@@ -41,6 +41,7 @@ const users = {
     const {
       name,
       email,
+      phone,
       company,
       birthday,
       document,
@@ -91,6 +92,7 @@ const users = {
       .insert({
         name,
         email,
+        phone,
         company,
         role_id: roles.id,
         document,
@@ -116,15 +118,16 @@ const users = {
     const {
       name,
       email,
+      phone,
       company,
       password,
       birthday,
     } = ctx.request.body;
 
     const logged = await knex('users').where({ id }).first();
-    const database = await knex('users').where({ email }).first();
+    const database = email && await knex('users').where({ email }).first();
 
-    if (email === database.email && ! logged.email) ctx.throw(400, 'Registered user.');
+    if (email === database?.email && email !== logged.email) ctx.throw(400, 'Registered user.');
 
     const hash = password ? await bcrypt.hash(password) : logged.password;
 
@@ -132,6 +135,7 @@ const users = {
       .update({
         name,
         email,
+        phone,
         company,
         birthday,
         password: hash,
@@ -149,6 +153,10 @@ const users = {
     const {
       id,
     } = ctx.params;
+
+    const user = await knex('users').where({ id }).first();
+
+    if (user.father_id === null) ctx.throw(400, 'This user cannot be deleted.');
 
     await knex('users')
       .where({ id })
