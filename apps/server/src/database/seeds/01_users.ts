@@ -8,10 +8,10 @@ exports.seed = async (knex: Knex): Promise<void> => {
     {
       name: 'Yuri Martins',
       email: 'yuri@estudioflow.com.br',
+      company: 'Estúdio Flow',
       role_id: 2,
-      document: '121.893.616-99',
+      document: '08.808.426/0001-45',
       password: await bcrypt.hash('123456'),
-      company_id: 1,
     },
   ]);
 };

@@ -51,34 +51,62 @@ const users = {
     const {
       name,
       email,
+      company,
+      birthday,
+      document,
       password,
       father_id,
     } = ctx.request.body;
 
     const hash = await bcrypt.hash(password);
 
-    const roles = role && await knex('roles').where({ name: role }).first();
-    const logged = await knex('users').where({ email }).first();
+    /**
+     * Check if you are sending the query "role".
+     */
+    if (! role) ctx.throw(400, 'Add the query "role" to define the permission of the created user.');
+
+    const roles = await knex('roles').where({ name: role }).first();
+    const logged = await knex('users').where({ email }).orWhere({ document });
 
     /**
-     * Checks if the email is
+     * Checks if the email or document is
      * already registered in the database.
      */
-    if (email === logged?.email) ctx.throw(400, 'Registered user.');
+    const errors = logged.map((user) => ({
+      email: user.email === email,
+      document: user.document === document,
+    }));
+
+    if (errors[0]?.email) ctx.throw(400, 'Registered user.');
+    if (errors[0]?.document) ctx.throw(400, 'Registered document.');
 
     /**
-     * Checks if the permission
-     * user "USER" is sending the key "father_id".
+     * Required document.
      */
-    if ((! role || role === 'USER') && ! father_id) ctx.throw(400, 'Required father_id.');
+    if (! document) ctx.throw(400, 'The document is required (CPF or CNPJ).');
+
+    /**
+     * Check if you are
+     * receiving the "father_id" key.
+     */
+    if (role !== 'ADMIN' && ! father_id) ctx.throw(400, 'Required father_id.');
+
+    /**
+     * Checks if the user "ADMIN"
+     * is sending the key "company".
+     */
+    if (role === 'ADMIN' && ! company) ctx.throw(400, 'Company name is required.');
 
     await knex('users')
       .insert({
         name,
         email,
-        role_id: roles?.id || 1,
+        company,
+        role_id: roles.id,
+        document,
+        birthday,
         password: hash,
-        father_id: father_id || null,
+        father_id,
       })
       .returning('*')
       .then((user) => {
