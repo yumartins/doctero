@@ -6,24 +6,14 @@ import knex from '../database';
 const users = {
   list: async (ctx: Context): Promise<void> => {
     const {
-      role,
-      father,
-    } = ctx.query;
-
-    const roles = role && await knex('roles').where({ name: role }).first();
-
-    /**
-     * Checks if the permission
-     * user "USER" is sending the query "father_id".
-     */
-    if ((! role || role === 'USER') && ! father) ctx.throw(400, 'The "father" query is required.');
+      user,
+    } = ctx.state;
 
     await knex('users')
-      .where({ role_id: roles?.id || 1 })
-      .andWhere({ father_id: father || null })
+      .where({ father_id: user.id })
       .returning('*')
-      .then((user) => {
-        const usered = user.map(({ password, ...rest }) => rest);
+      .then((us) => {
+        const usered = us.map(({ password, ...rest }) => rest);
 
         ctx.body = usered;
       });
@@ -126,10 +116,15 @@ const users = {
     const {
       name,
       email,
+      company,
       password,
+      birthday,
     } = ctx.request.body;
 
     const logged = await knex('users').where({ id }).first();
+    const database = await knex('users').where({ email }).first();
+
+    if (email === database.email && ! logged.email) ctx.throw(400, 'Registered user.');
 
     const hash = password ? await bcrypt.hash(password) : logged.password;
 
@@ -137,6 +132,8 @@ const users = {
       .update({
         name,
         email,
+        company,
+        birthday,
         password: hash,
       })
       .where({ id })
