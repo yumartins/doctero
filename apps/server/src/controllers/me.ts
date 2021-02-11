@@ -37,7 +37,7 @@ const me = {
     if (email) {
       const database = await knex('users').where({ email }).first();
 
-      if (email === database?.email && email !== user.email) ctx.throw(400, 'Registered user.');
+      if (email === database?.email) ctx.throw(400, 'Registered user.');
     }
 
     const hash = password ? await bcrypt.hash(password) : user.password;

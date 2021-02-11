@@ -9,3 +9,7 @@ export {
 export {
   default as users,
 } from './users';
+
+export {
+  default as signup,
+} from './signup';

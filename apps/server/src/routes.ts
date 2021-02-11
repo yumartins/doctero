@@ -1,7 +1,12 @@
 import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
 
-import { me, auth, users } from './controllers';
+import {
+  me,
+  auth,
+  users,
+  signup,
+} from './controllers';
 import { authenticaded } from './middlewares';
 
 const router = new Router<DefaultState, Context>();
@@ -10,6 +15,7 @@ const router = new Router<DefaultState, Context>();
  * Auth.
  */
 router.post('/auth', auth);
+router.post('/signup', signup);
 
 /**
  * User logged in.
