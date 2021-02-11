@@ -11,7 +11,7 @@ const admin = async (ctx: Context, next: () => Promise<void>): Promise<void> => 
   /**
    * Only "ADMIN" users can create accounts.
    */
-  if (user.father_id !== null) ctx.throw(400, 'Only "ADMIN" users can create accounts.');
+  if (user.company_id !== null) ctx.throw(400, 'Only "ADMIN" users can create accounts.');
 
   return next();
 };

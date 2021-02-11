@@ -10,7 +10,7 @@ const users = {
     } = ctx.state;
 
     await knex('users')
-      .where({ father_id: user.father_id || user.id })
+      .where({ company_id: user.company_id || user.id })
       .returning('*')
       .then((us) => {
         const usered = us.map(({ password, ...rest }) => rest);
@@ -82,7 +82,7 @@ const users = {
         document,
         birthday,
         password: hash,
-        father_id: user.id,
+        company_id: user.id,
       })
       .returning('*')
       .then((us) => {
@@ -140,7 +140,7 @@ const users = {
 
     const user = await knex('users').where({ id }).first();
 
-    if (user.father_id === null) ctx.throw(400, 'This user cannot be deleted.');
+    if (user.company_id === null) ctx.throw(400, 'This user cannot be deleted.');
 
     await knex('users')
       .where({ id })

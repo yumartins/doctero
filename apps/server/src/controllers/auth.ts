@@ -28,7 +28,7 @@ const auth = async (ctx: ExtendableContext, next: () => Promise<void>): Promise<
     email,
     role_id: user.role_id,
     password: user.password,
-    father_id: user.father_id,
+    company_id: user.company_id,
   });
 
   ctx.status = 200;

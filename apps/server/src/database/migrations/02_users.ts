@@ -16,7 +16,7 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('users
   table.text('password').notNullable();
 
   table.integer('role_id').references('roles.id');
-  table.integer('father_id').references('users.id');
+  table.integer('company_id').references('users.id');
 
   table.timestamps(true, true);
 })

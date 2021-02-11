@@ -3,5 +3,5 @@ export type Payload = {
   email: string,
   role_id?: number | null,
   password: string,
-  father_id?: number | null,
+  company_id?: number | null,
 };

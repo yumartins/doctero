@@ -67,10 +67,10 @@ const me = {
 
     const {
       id,
-      father_id,
+      company_id,
     } = user;
 
-    if (father_id === null) ctx.throw(400, 'This user cannot be deleted.');
+    if (company_id === null) ctx.throw(400, 'This user cannot be deleted.');
 
     await knex('users')
       .where({ id })
