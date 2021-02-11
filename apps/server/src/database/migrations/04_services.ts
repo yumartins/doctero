@@ -7,6 +7,7 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('servi
 
   table.text('sku');
   table.text('name').notNullable();
+  table.text('description');
 
   table.integer('sale_price').notNullable();
 
