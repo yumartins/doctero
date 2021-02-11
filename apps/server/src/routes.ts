@@ -14,7 +14,9 @@ router.post('/auth', auth);
 /**
  * User logged in.
  */
-router.get('/me', authenticaded, me);
+router.get('/me', authenticaded, me.show);
+router.put('/me', authenticaded, me.update);
+router.delete('/me', authenticaded, me.delete);
 
 /**
  * Users.
