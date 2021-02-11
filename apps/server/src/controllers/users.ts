@@ -78,7 +78,7 @@ const users = {
         name,
         email,
         phone,
-        role_id: role_id || 1,
+        role_id: role_id || 2,
         document,
         birthday,
         password: hash,

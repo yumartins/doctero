@@ -46,7 +46,7 @@ const signup = async (ctx: Context, next: () => Promise<void>): Promise<void> =>
       email,
       phone,
       company,
-      role_id: 2,
+      role_id: 1,
       document,
       birthday,
       password: hash,
