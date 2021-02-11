@@ -35,74 +35,58 @@ const users = {
     await next();
 
     const {
-      role,
-    } = ctx.query;
+      user,
+    } = ctx.state;
 
     const {
       name,
       email,
       phone,
-      company,
+      role_id,
       birthday,
       document,
       password,
-      father_id,
     } = ctx.request.body;
 
-    const hash = await bcrypt.hash(password);
-
     /**
-     * Check if you are sending the query "role".
+     * Required email.
      */
-    if (! role) ctx.throw(400, 'Add the query "role" to define the permission of the created user.');
-
-    const roles = await knex('roles').where({ name: role }).first();
-    const logged = await knex('users').where({ email }).orWhere({ document });
-
-    /**
-     * Checks if the email or document is
-     * already registered in the database.
-     */
-    const errors = logged.map((user) => ({
-      email: user.email === email,
-      document: user.document === document,
-    }));
-
-    if (errors[0]?.email) ctx.throw(400, 'Registered user.');
-    if (errors[0]?.document) ctx.throw(400, 'Registered document.');
+    if (! email) ctx.throw(400, 'The email is required.');
 
     /**
      * Required document.
      */
     if (! document) ctx.throw(400, 'The document is required (CPF or CNPJ).');
 
-    /**
-     * Check if you are
-     * receiving the "father_id" key.
-     */
-    if (role !== 'ADMIN' && ! father_id) ctx.throw(400, 'Required father_id.');
+    const hash = await bcrypt.hash(password);
+
+    const created = await knex('users').where({ email }).orWhere({ document });
 
     /**
-     * Checks if the user "ADMIN"
-     * is sending the key "company".
+     * Checks if the email or document is
+     * already registered in the database.
      */
-    if (role === 'ADMIN' && ! company) ctx.throw(400, 'Company name is required.');
+    created.map((us) => {
+      if (us.email === email) ctx.throw(400, 'Registered user.');
+      if (us.document === document) ctx.throw(400, 'Registered document.');
+
+      return null;
+    });
 
     await knex('users')
       .insert({
         name,
         email,
         phone,
-        company,
-        role_id: roles.id,
+        role_id: role_id || 1,
         document,
         birthday,
         password: hash,
-        father_id,
+        father_id: user.id,
       })
       .returning('*')
-      .then((user) => {
-        ctx.body = remove('password', user[0]);
+      .then((us) => {
+        ctx.body = remove('password', us[0]);
 
         ctx.status = 201;
       });
@@ -119,31 +103,31 @@ const users = {
       name,
       email,
       phone,
-      company,
+      role_id,
       password,
       birthday,
     } = ctx.request.body;
 
-    const logged = await knex('users').where({ id }).first();
+    const created = await knex('users').where({ id }).first();
     const database = email && await knex('users').where({ email }).first();
 
-    if (email === database?.email && email !== logged.email) ctx.throw(400, 'Registered user.');
+    if (email === database?.email && email !== created.email) ctx.throw(400, 'Registered user.');
 
-    const hash = password ? await bcrypt.hash(password) : logged.password;
+    const hash = password ? await bcrypt.hash(password) : created.password;
 
     await knex('users')
       .update({
         name,
         email,
         phone,
-        company,
+        role_id,
         birthday,
         password: hash,
       })
       .where({ id })
       .returning('*')
-      .then((user) => {
-        ctx.body = remove('password', user[0]);
+      .then((us) => {
+        ctx.body = remove('password', us[0]);
       });
   },
 

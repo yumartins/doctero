@@ -1,10 +1,10 @@
 const knexfile = {
   client: 'pg',
   connection: {
-    user: 'yumartins',
-    host: '127.0.0.1',
-    database: 'doctero',
-    password: 'postgres',
+    user: process.env.USER_DB,
+    host: process.env.HOST_DB,
+    database: process.env.DATABASE_DB,
+    password: process.env.PASSWORD_DB,
   },
 
   seeds: {
