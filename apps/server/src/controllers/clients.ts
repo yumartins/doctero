@@ -2,12 +2,6 @@ import { Context } from 'koa';
 
 import knex from '../database';
 
-const types = {
-  BOTH: 'BOTH',
-  CLIENT: 'CLIENT',
-  PROVIDER: 'PROVIDER',
-};
-
 const clients = {
   list: async (ctx: Context): Promise<void> => {
     const {
@@ -73,11 +67,6 @@ const clients = {
     if (! email) ctx.throw(400, 'The email is required.');
     if (! document) ctx.throw(400, 'The document is required.');
 
-    /**
-     * Checks if you are receiving the query "type".
-     */
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
-
     const created = await knex('users').where({ email }).orWhere({ document });
 
     /**
@@ -138,11 +127,6 @@ const clients = {
       company,
       birthday,
     } = ctx.request.body;
-
-    /**
-     * Checks if you are receiving the query "type".
-     */
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
 
     const created = await knex('users').where({ email }).first();
 

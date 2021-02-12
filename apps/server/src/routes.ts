@@ -11,7 +11,7 @@ import {
 } from './controllers';
 import {
   roles,
-  services,
+  validations,
   authenticaded,
 } from './middlewares';
 
@@ -44,17 +44,17 @@ router.delete('/users/:id', authenticaded, roles, users.delete);
  */
 router.get('/clients', authenticaded, clients.list);
 router.get('/clients/:id', authenticaded, clients.show);
-router.put('/clients/:id', authenticaded, roles, clients.update);
-router.post('/clients', authenticaded, roles, clients.create);
-router.delete('/clients/:id', authenticaded, roles, clients.delete);
+router.put('/clients/:id', authenticaded, roles, validations, clients.update);
+router.post('/clients', authenticaded, roles, validations, clients.create);
+router.delete('/clients/:id', authenticaded, roles, validations, clients.delete);
 
 /**
  * Products.
  */
-router.get('/products', authenticaded, services, products.list);
-router.get('/products/:id', authenticaded, services, products.show);
-router.put('/products/:id', authenticaded, roles, services, products.update);
-router.post('/products', authenticaded, roles, services, products.create);
-router.delete('/products/:id', authenticaded, roles, services, products.delete);
+router.get('/products', authenticaded, validations, products.list);
+router.get('/products/:id', authenticaded, validations, products.show);
+router.put('/products/:id', authenticaded, roles, validations, products.update);
+router.post('/products', authenticaded, roles, validations, products.create);
+router.delete('/products/:id', authenticaded, roles, validations, products.delete);
 
 export default router;

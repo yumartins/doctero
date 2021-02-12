@@ -7,8 +7,8 @@ export {
 } from './errors';
 
 export {
-  default as services,
-} from './services';
+  default as validations,
+} from './validations';
 
 export {
   default as authenticaded,
