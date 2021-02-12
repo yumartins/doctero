@@ -7,5 +7,9 @@ export {
 } from './errors';
 
 export {
+  default as services,
+} from './services';
+
+export {
   default as authenticaded,
 } from './auth';

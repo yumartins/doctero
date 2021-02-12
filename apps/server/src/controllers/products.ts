@@ -22,8 +22,6 @@ const products = {
       company_id,
     } = user;
 
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
-
     await knex(types[type])
       .where({ company_id: company_id || id })
       .returning('*')
@@ -36,24 +34,12 @@ const products = {
     await next();
 
     const {
-      user,
-    } = ctx.state;
-
-    const {
       id,
     } = ctx.params;
 
     const {
       type,
     } = ctx.query;
-
-    const {
-      role_id,
-    } = user;
-
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
-
-    if (role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     const product = await knex(types[type]).where({ id }).first();
 
@@ -73,7 +59,6 @@ const products = {
 
     const {
       id,
-      role_id,
       company_id,
     } = user;
 
@@ -94,10 +79,6 @@ const products = {
     if (! name) ctx.throw(400, 'Name is required.');
 
     if (! sale_price) ctx.throw(400, 'Sale price is required.');
-
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
-
-    if (role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     if (type === 'SERVICES') {
       await knex('services')
@@ -149,20 +130,12 @@ const products = {
     await next();
 
     const {
-      user,
-    } = ctx.state;
-
-    const {
       type,
     } = ctx.query;
 
     const {
       id,
     } = ctx.params;
-
-    const {
-      role_id,
-    } = user;
 
     const {
       sku,
@@ -177,10 +150,6 @@ const products = {
       description,
       inital_stock,
     } = ctx.request.body;
-
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
-
-    if (role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     if (type === 'SERVICES') {
       await knex('services')
@@ -232,24 +201,12 @@ const products = {
     await next();
 
     const {
-      user,
-    } = ctx.state;
-
-    const {
       type,
     } = ctx.query;
 
     const {
       id,
     } = ctx.params;
-
-    const {
-      role_id,
-    } = user;
-
-    if (! type || ! types[type]) ctx.throw(400, 'Please enter a valid type.');
-
-    if (role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     await knex(types[type])
       .where({ id })

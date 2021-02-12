@@ -8,7 +8,7 @@ import {
   signup,
   products,
 } from './controllers';
-import { admin, authenticaded } from './middlewares';
+import { admin, services, authenticaded } from './middlewares';
 
 const router = new Router<DefaultState, Context>();
 
@@ -37,10 +37,10 @@ router.delete('/users/:id', authenticaded, admin, users.delete);
 /**
  * Products.
  */
-router.get('/products', authenticaded, products.list);
-router.get('/products/:id', authenticaded, products.show);
-router.put('/products/:id', authenticaded, products.update);
-router.post('/products', authenticaded, products.create);
-router.delete('/products/:id', authenticaded, products.delete);
+router.get('/products', authenticaded, services, products.list);
+router.get('/products/:id', authenticaded, services, products.show);
+router.put('/products/:id', authenticaded, services, products.update);
+router.post('/products', authenticaded, services, products.create);
+router.delete('/products/:id', authenticaded, services, products.delete);
 
 export default router;
