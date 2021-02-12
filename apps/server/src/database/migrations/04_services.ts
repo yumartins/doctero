@@ -9,7 +9,7 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('servi
   table.text('name').notNullable();
   table.text('description');
 
-  table.integer('sale_price').notNullable();
+  table.float('sale_price').notNullable();
 
   table.integer('company_id').references('users.id');
 

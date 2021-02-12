@@ -17,8 +17,8 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('produ
   table.integer('max_stock').notNullable();
   table.integer('inital_stock').notNullable();
 
-  table.integer('cost_price').notNullable();
-  table.integer('sale_price').notNullable();
+  table.float('cost_price').notNullable();
+  table.float('sale_price').notNullable();
 
   table.integer('company_id').references('users.id');
 

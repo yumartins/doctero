@@ -13,3 +13,7 @@ export {
 export {
   default as signup,
 } from './signup';
+
+export {
+  default as products,
+} from './products';
