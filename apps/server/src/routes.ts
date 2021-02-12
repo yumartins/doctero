@@ -6,6 +6,7 @@ import {
   auth,
   users,
   signup,
+  clients,
   products,
 } from './controllers';
 import { admin, services, authenticaded } from './middlewares';
@@ -33,6 +34,15 @@ router.post('/users', authenticaded, admin, users.create);
 router.get('/users/:id', authenticaded, users.show);
 router.put('/users/:id', authenticaded, admin, users.update);
 router.delete('/users/:id', authenticaded, admin, users.delete);
+
+/**
+ * Clients.
+ */
+router.get('/clients', authenticaded, clients.list);
+router.get('/clients/:id', authenticaded, clients.show);
+router.put('/clients/:id', authenticaded, clients.update);
+router.post('/clients', authenticaded, clients.create);
+router.delete('/clients/:id', authenticaded, clients.delete);
 
 /**
  * Products.

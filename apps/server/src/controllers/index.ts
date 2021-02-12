@@ -15,5 +15,9 @@ export {
 } from './signup';
 
 export {
+  default as clients,
+} from './clients';
+
+export {
   default as products,
 } from './products';
