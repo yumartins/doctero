@@ -52,7 +52,6 @@ const clients = {
 
     const {
       id,
-      role_id,
       company_id,
     } = user;
 
@@ -66,11 +65,6 @@ const clients = {
       document,
       birthday,
     } = ctx.request.body;
-
-    /**
-     * Only "ADMIN and FINANCIAL" users can create products.
-     */
-    if (ctx.request.method !== 'GET' && role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     /**
      * Required.
@@ -133,7 +127,6 @@ const clients = {
 
     const {
       id,
-      role_id,
     } = user;
 
     const {
@@ -145,11 +138,6 @@ const clients = {
       company,
       birthday,
     } = ctx.request.body;
-
-    /**
-     * Only "ADMIN and FINANCIAL" users can create products.
-     */
-    if (ctx.request.method !== 'GET' && role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     /**
      * Checks if you are receiving the query "type".
@@ -190,21 +178,8 @@ const clients = {
     await next();
 
     const {
-      user,
-    } = ctx.state;
-
-    const {
       id,
     } = ctx.params;
-
-    const {
-      role_id,
-    } = user;
-
-    /**
-     * Only "ADMIN and FINANCIAL" users can delete clients.
-     */
-    if (role_id === 2) ctx.throw(400, 'You are not allowed to access this information.');
 
     await knex('clients')
       .where({ id })

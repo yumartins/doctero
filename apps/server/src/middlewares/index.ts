@@ -1,6 +1,6 @@
 export {
-  default as admin,
-} from './admin';
+  default as roles,
+} from './roles';
 
 export {
   default as errors,
