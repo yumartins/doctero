@@ -22,7 +22,9 @@ const products = {
       company_id,
     } = user;
 
-    await knex(types[type])
+    const typed = type as string;
+
+    await knex(types[typed])
       .where({ company_id: company_id || id })
       .returning('*')
       .then((us) => {
@@ -41,7 +43,9 @@ const products = {
       type,
     } = ctx.query;
 
-    const product = await knex(types[type]).where({ id }).first();
+    const typed = type as string;
+
+    const product = await knex(types[typed]).where({ id }).first();
 
     ctx.body = product;
   },
@@ -204,11 +208,13 @@ const products = {
       type,
     } = ctx.query;
 
+    const typed = type as string;
+
     const {
       id,
     } = ctx.params;
 
-    await knex(types[type])
+    await knex(types[typed])
       .where({ id })
       .del();
 

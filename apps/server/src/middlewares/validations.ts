@@ -8,6 +8,8 @@ const validations = async (ctx: Context, next: () => Promise<void>): Promise<voi
     type,
   } = ctx.query;
 
+  const typed = type as string;
+
   const clients = {
     BOTH: 'BOTH',
     CLIENT: 'CLIENT',
@@ -22,7 +24,7 @@ const validations = async (ctx: Context, next: () => Promise<void>): Promise<voi
   /**
    * Checks if you are receiving the query "type".
    */
-  if (! type || (! clients[type[0]] && ! services[type[0]])) ctx.throw(400, 'Please enter a valid type.');
+  if (! type || (! clients[typed] && ! services[typed])) ctx.throw(400, 'Please enter a valid type.');
 
   return next();
 };
