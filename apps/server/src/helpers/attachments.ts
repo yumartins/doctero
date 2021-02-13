@@ -1,4 +1,5 @@
 import { diskStorage } from '@koa/multer';
+import crypto from 'crypto-js';
 import { join } from 'path';
 
 /**
@@ -6,13 +7,17 @@ import { join } from 'path';
  */
 export const storage = diskStorage({
   destination(_, __, cb) {
-    cb(null, join(__dirname, '/uploads'));
+    cb(null, join(__dirname, '../../uploads'));
   },
 
   filename(_, file, cb) {
     const type = file.originalname.split('.')[1];
 
-    cb(null, `${file.fieldname}-${Date.now().toString(16)}.${type}`);
+    const hash = crypto.enc.Base64.parse(`attachment-${Date.now()}`);
+
+    const hex = crypto.enc.Hex.stringify(hash);
+
+    cb(null, `${hex}.${type}`);
   },
 });
 

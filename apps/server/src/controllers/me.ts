@@ -18,6 +18,14 @@ const me = {
     ctx.body = remove('password', logged);
   },
 
+  media: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+    await next();
+
+    console.log(ctx.file);
+
+    ctx.status = 200;
+  },
+
   update: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
     await next();
 
