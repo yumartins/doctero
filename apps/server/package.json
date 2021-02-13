@@ -15,6 +15,7 @@
   "dependencies": {
     "@core/helpers": "*",
     "@koa/cors": "^3.1.0",
+    "@koa/multer": "^3.0.0",
     "@koa/router": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.17",
@@ -25,10 +26,11 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/koa": "^2.11.7",
+    "@types/koa": "^2.11.8",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-helmet": "^6.0.1",
     "@types/koa__cors": "^3.0.2",
+    "@types/koa__multer": "^2.0.2",
     "@types/koa__router": "^8.0.4",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1"

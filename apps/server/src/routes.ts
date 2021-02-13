@@ -1,3 +1,4 @@
+import multer from '@koa/multer';
 import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
 
@@ -9,6 +10,7 @@ import {
   clients,
   products,
 } from './controllers';
+import { limits, storage } from './helpers';
 import {
   roles,
   validations,
@@ -16,6 +18,8 @@ import {
 } from './middlewares';
 
 const router = new Router<DefaultState, Context>();
+
+const upload = multer({ storage, limits });
 
 /**
  * Auth.
@@ -46,7 +50,7 @@ router.get('/clients', authenticaded, clients.list);
 router.get('/clients/:id', authenticaded, clients.show);
 router.put('/clients/:id', authenticaded, roles, validations, clients.update);
 router.post('/clients', authenticaded, roles, validations, clients.create);
-router.delete('/clients/:id', authenticaded, roles, validations, clients.delete);
+router.delete('/clients/:id', authenticaded, roles, clients.delete);
 
 /**
  * Products.
@@ -56,5 +60,10 @@ router.get('/products/:id', authenticaded, validations, products.show);
 router.put('/products/:id', authenticaded, roles, validations, products.update);
 router.post('/products', authenticaded, roles, validations, products.create);
 router.delete('/products/:id', authenticaded, roles, validations, products.delete);
+
+/**
+ * Attachments.
+ */
+router.post('/attachments', authenticaded, upload.single('file'), products.create);
 
 export default router;
