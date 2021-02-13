@@ -22,7 +22,7 @@ const validations = async (ctx: Context, next: () => Promise<void>): Promise<voi
   /**
    * Checks if you are receiving the query "type".
    */
-  if (! type || (! clients[type] && ! services[type])) ctx.throw(400, 'Please enter a valid type.');
+  if (! type || (! clients[type[0]] && ! services[type[0]])) ctx.throw(400, 'Please enter a valid type.');
 
   return next();
 };

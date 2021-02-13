@@ -1,3 +1,4 @@
+import { verify } from '@core/helpers';
 import JWT from 'jsonwebtoken';
 import { Context } from 'koa';
 
@@ -14,7 +15,7 @@ const secret = process.env.APP_SECRET || '';
  * Resolve token from header.
  */
 export const getToken = (ctx: Context): string => {
-  if (! ctx.headers || ! ctx.headers.authorization) {
+  if (! verify(['/auth', '/signup'], ctx.path) || ! ctx.headers || ! ctx.headers.authorization) {
     throw new Unauthorized();
   }
 

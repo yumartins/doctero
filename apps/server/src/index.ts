@@ -4,7 +4,7 @@ import Koa from 'koa';
 import paser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 
-import { errors } from './middlewares';
+import { errors, authenticaded } from './middlewares';
 import router from './routes';
 
 const app = new Koa();
@@ -13,6 +13,7 @@ app.use(cors());
 app.use(helmet());
 app.use(errors);
 app.use(paser({ jsonLimit: '2mb' }));
+app.use(authenticaded);
 app.use(router.routes());
 app.use(router.allowedMethods());
 

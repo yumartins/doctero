@@ -1,5 +1,3 @@
-import { hash } from './bcrypt';
-
 export {
   default as dot,
 } from './dot';
@@ -7,6 +5,10 @@ export {
 export {
   default as bcrypt,
 } from './bcrypt';
+
+export {
+  default as verify,
+} from './verify';
 
 export {
   default as remove,

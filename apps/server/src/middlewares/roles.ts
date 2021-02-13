@@ -1,3 +1,4 @@
+import { verify } from '@core/helpers';
 import { Context } from 'koa';
 
 /**
@@ -11,8 +12,6 @@ const roles = async (ctx: Context, next: () => Promise<void>): Promise<void> => 
   const {
     role_id,
   } = user;
-
-  const verify = (word: string[], string: string):boolean => word.includes(string);
 
   /**
    * Only "ADMIN" users can access.
