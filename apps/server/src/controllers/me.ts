@@ -2,6 +2,7 @@ import { bcrypt, remove } from '@core/helpers';
 import { Context } from 'koa';
 
 import knex from '../database';
+import { unlink, attachment } from '../helpers';
 
 const me = {
   show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
@@ -11,17 +12,38 @@ const me = {
       user,
     } = ctx.state;
 
-    const logged = await knex('users').where({ id: user.id }).first();
+    const {
+      id,
+    } = user;
+
+    const logged = await knex('users').where({ id }).first();
 
     ctx.status = 200;
 
-    ctx.body = remove('password', logged);
+    ctx.body = remove('password', { ...logged, avatar: logged?.avatar ? attachment(logged.avatar) : null });
   },
 
   media: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
     await next();
 
-    console.log(ctx.file);
+    const {
+      user,
+    } = ctx.state;
+
+    const {
+      id,
+    } = user;
+
+    /**
+     * Check if you are sending an attachment.
+     */
+    if (! ctx.file) ctx.throw(400, 'Send an attachment.');
+
+    await knex('users')
+      .update({
+        avatar: ctx.file.filename,
+      })
+      .where({ id });
 
     ctx.status = 200;
   },
@@ -84,7 +106,9 @@ const me = {
 
     await knex('users')
       .where({ id })
-      .del();
+      .del()
+      .returning('avatar')
+      .then((us) => unlink(us[0]));
 
     ctx.status = 200;
   },

@@ -19,7 +19,7 @@ import {
 
 const router = new Router<DefaultState, Context>();
 
-const upload = multer({ storage, limits });
+const upload = multer({ storage, limits }).single('avatar');
 
 /**
  * Auth.
@@ -32,7 +32,7 @@ router.post('/signup', signup);
  */
 router.get('/me', authenticaded, me.show);
 router.put('/me', authenticaded, me.update);
-router.post('/me/media', authenticaded, upload.single('avatar'), me.media);
+router.post('/me/media', authenticaded, upload, me.media);
 router.delete('/me', authenticaded, me.delete);
 
 /**

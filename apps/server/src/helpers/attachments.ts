@@ -29,3 +29,8 @@ export const limits = {
   fields: 10,
   fileSize: 500 * 1024,
 };
+
+/**
+ * Absolute path attachment.
+ */
+export const attachment = (path: string): string => join(__dirname, '../../uploads', path);
