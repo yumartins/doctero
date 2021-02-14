@@ -32,7 +32,7 @@ router.post('/signup', signup);
  */
 router.get('/me', authenticaded, me.show);
 router.put('/me', authenticaded, me.update);
-router.post('/me/media', authenticaded, upload.single('attachment'), me.media);
+router.post('/me/media', authenticaded, upload.single('avatar'), me.media);
 router.delete('/me', authenticaded, me.delete);
 
 /**

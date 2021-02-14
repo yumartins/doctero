@@ -12,6 +12,7 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('users
   table.text('document').unique().notNullable();
 
   table.text('phone');
+  table.text('avatar');
   table.text('address');
   table.date('birthday');
   table.text('password').notNullable();

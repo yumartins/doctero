@@ -14,6 +14,7 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('clien
   table.text('type');
   table.text('note');
   table.text('phone');
+  table.text('avatar');
   table.text('address');
   table.date('birthday');
 
