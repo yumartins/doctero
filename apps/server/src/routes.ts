@@ -19,7 +19,7 @@ import {
 
 const router = new Router<DefaultState, Context>();
 
-const upload = multer({ storage, limits }).single('avatar');
+const upload = multer({ storage, limits }).single('attachment');
 
 /**
  * Auth.
@@ -51,6 +51,7 @@ router.get('/clients', authenticaded, clients.list);
 router.get('/clients/:id', authenticaded, clients.show);
 router.put('/clients/:id', authenticaded, roles, validations, clients.update);
 router.post('/clients', authenticaded, roles, validations, clients.create);
+router.post('/clients/:id/media', authenticaded, roles, upload, clients.media);
 router.delete('/clients/:id', authenticaded, roles, clients.delete);
 
 /**

@@ -1,6 +1,7 @@
 import { Context } from 'koa';
 
 import knex from '../database';
+import { unlink, attachment } from '../helpers';
 
 const clients = {
   list: async (ctx: Context): Promise<void> => {
@@ -17,7 +18,12 @@ const clients = {
       .where({ company_id: company_id || id })
       .returning('*')
       .then((us) => {
-        ctx.body = us;
+        const users = us?.map((item) => ({
+          ...item,
+          avatar: item?.avatar ? attachment(item.avatar) : null,
+        }));
+
+        ctx.body = users;
       });
   },
 
@@ -30,7 +36,31 @@ const clients = {
 
     const product = await knex('clients').where({ id }).first();
 
-    ctx.body = product;
+    ctx.body = {
+      ...product,
+      avatar: product?.avatar ? attachment(product.avatar) : null,
+    };
+  },
+
+  media: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+    await next();
+
+    const {
+      id,
+    } = ctx.params;
+
+    /**
+     * Check if you are sending an attachment.
+     */
+    if (! ctx.file) ctx.throw(400, 'Send an attachment.');
+
+    await knex('clients')
+      .update({
+        avatar: ctx.file.filename,
+      })
+      .where({ id });
+
+    ctx.status = 200;
   },
 
   create: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
@@ -167,7 +197,9 @@ const clients = {
 
     await knex('clients')
       .where({ id })
-      .del();
+      .del()
+      .returning('avatar')
+      .then((us) => unlink(us[0]));
 
     ctx.status = 200;
   },
