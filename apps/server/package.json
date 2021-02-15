@@ -5,12 +5,18 @@
   "author": "Yuri Martins",
   "private": false,
   "scripts": {
+    "build": "babel src/ knexfile.ts --out-dir ./dist -D --extensions '.ts,.tsx' --copy-files --no-copy-ignored",
     "server": "ts-node-dev --ignore-watch node_modules src/index.ts",
     "knex:seed:run": "knex seed:run --knexfile knexfile.ts",
     "knex:seed:make": "knex seed:make --knexfile knexfile.ts -x ts seed",
     "knex:migrate:make": "sequelize migrate:create",
     "knex:migrate:latest": "knex migrate:latest --knexfile knexfile.ts",
     "knex:migrate:rollback": "knex migrate:rollback --knexfile knexfile.ts"
+  },
+  "babel": {
+    "presets": [
+      "module:@core/babel"
+    ]
   },
   "dependencies": {
     "@core/helpers": "*",

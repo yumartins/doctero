@@ -32,6 +32,7 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
+    "outDir": "./dist",
     "allowJs": true,
     "sourceMap": true,
     "declaration": true,

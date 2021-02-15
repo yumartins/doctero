@@ -5,12 +5,12 @@
   "private": true,
   "scripts": {
     "web": "yarn workspace @apps/web run web",
-    "tsc": "tsc --skipLibCheck",
     "clean": "bash .bin/run.sh core clean $*",
     "build": "bash .bin/run.sh core build $*",
     "commit": "cz",
     "server": "yarn workspace @apps/server run server",
     "prebuild": "bash .bin/run.sh core prebuild $*",
+    "build:apps": "bash .bin/run.sh apps build $*",
     "postinstall": "husky install",
     "database:seed:run": "yarn workspace @apps/server run knex:seed:run",
     "database:migrate:latest": "yarn workspace @apps/server run knex:migrate:latest",
