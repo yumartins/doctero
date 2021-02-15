@@ -46,7 +46,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/naming-convention': [
       'error', {
-        format: ['camelCase', 'snake_case'],
+        format: ['camelCase', 'snake_case', 'uppercase'],
         selector: 'variable',
       },
     ],

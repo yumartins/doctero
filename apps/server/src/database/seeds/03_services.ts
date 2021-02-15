@@ -1,9 +1,9 @@
 import * as Knex from 'knex';
 
 exports.seed = async (knex: Knex): Promise<void> => {
-  await knex('clients').del();
+  await knex('services').del();
 
-  await knex('clients').insert([
+  await knex('services').insert([
     {
       sku: '87968676886768',
       name: 'Site',
