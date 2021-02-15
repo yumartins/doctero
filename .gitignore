@@ -3,6 +3,6 @@
 dist/
 .next/
 
-# uploads/
+uploads/
 
 node_modules
