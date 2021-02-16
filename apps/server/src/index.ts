@@ -16,4 +16,4 @@ app.use(paser({ jsonLimit: '2mb' }));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(3333);
+app.listen(process.env.PORT || 3333);

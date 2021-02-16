@@ -1,0 +1,58 @@
+name: 🎉 Deploy server.
+
+on:
+  push:
+    branches:
+      - develop
+
+    paths:
+      - "core/**"
+      - "apps/server"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel previous runs.
+        uses: technote-space/auto-cancel-redundant-job@v1
+
+      - name: 🚚 Remove origin.
+        uses: actions/checkout@v2.3.2
+        run: git remote add heroku-backend https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+      
+      - name: Get yarn cache path.
+        id: yarn-cache-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache yarn.
+        uses: actions/cache@v2
+        with:
+          path: |
+            '**/node_modules'
+            ${{ steps.yarn-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-flow-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flow-cache-
+
+      - name: Setup node 14.
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install deps and run build packages.
+        if: ${{ success() }}
+        run: yarn --frozen-lockfile && yarn build
+
+      - name: Build project
+        if: ${{ success() }}
+        run: yarn build:apps
+
+      - name: Build and push
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} 
+      
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} 
