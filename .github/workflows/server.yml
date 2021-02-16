@@ -27,7 +27,7 @@ jobs:
         id: yarn-cache-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - name: Cache yarn.
+      - name: 💾 Cache yarn.
         uses: actions/cache@v2
         with:
           path: |
@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install deps and run build packages.
+      - name: 🔧 Install deps and run build packages.
         if: ${{ success() }}
         run: yarn --frozen-lockfile && yarn build
 
@@ -50,7 +50,7 @@ jobs:
         if: ${{ success() }}
         run: yarn build:apps
 
-      - name: Build and push.
+      - name: 🚀 Build and push.
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} 
