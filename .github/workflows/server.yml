@@ -12,6 +12,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Cancel previous runs.
         uses: technote-space/auto-cancel-redundant-job@v1
