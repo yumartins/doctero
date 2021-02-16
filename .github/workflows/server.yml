@@ -48,12 +48,11 @@ jobs:
         run: yarn build:apps
 
       - name: 🚀 Deploy production.
-          uses: amondnet/vercel-action@v20
-          id: vercel-action-production
-          # if: github.event_name == 'push'
-          with:
-            vercel-args: '--prod'
-            vercel-token: ${{ secrets.VERCEL_TOKEN }}
-            # github-token: ${{ secrets.GITHUB_TOKEN }} 
-            vercel-org-id: ${{ secrets.ORG_ID}}
-            vercel-project-id: ${{ secrets.PROJECT_ID}}
+        uses: amondnet/vercel-action@v20
+        # if: github.event_name == 'push'
+        with:
+          vercel-args: '--prod'
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          # github-token: ${{ secrets.GITHUB_TOKEN }} 
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
