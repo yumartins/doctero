@@ -1,11 +1,13 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import cors from '@koa/cors';
 import Koa from 'koa';
 import paser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
-
+import { join } from 'path';
 import { errors } from './middlewares';
 import router from './routes';
+
+dotenv.config({ path: join(__dirname, '../../../.env') });
 
 const app = new Koa();
 
