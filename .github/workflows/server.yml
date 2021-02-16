@@ -41,7 +41,7 @@ jobs:
 
       - name: 🔧 Install deps and run build packages.
         if: ${{ success() }}
-        run: yarn build
+        run: yarn && yarn build
 
       - name: Build project.
         if: ${{ success() }}
