@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "github": {
+    "enabled": true
+  },
+  "builds": [
+    {
+      "src": "/apps/server/dist/index.js",
+      "use": "@now/node"
+    },
+    {
+      "src": "/apps/web/out/*",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/apps/server/dist/index.js" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/apps/web/out/index.html" }
+  ]
+}

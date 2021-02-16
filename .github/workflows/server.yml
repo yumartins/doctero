@@ -29,10 +29,10 @@ jobs:
         with:
           path: |
             '**/node_modules'
-            ${{ steps.yarn-cache-path.outputs.dir }}
-          key: ${{ runner.os }}-flow-cache-${{ hashFiles('**/yarn.lock') }}
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-flow-cache-
+            ${{ runner.os }}-yarn-
 
       - name: Setup node 14.
         uses: actions/setup-node@v2
@@ -41,28 +41,27 @@ jobs:
 
       - name: 🔧 Install deps and run build packages.
         if: ${{ success() }}
-        run: yarn --frozen-lockfile && yarn build
+        run: yarn build
 
       - name: Build project.
         if: ${{ success() }}
         run: yarn build:apps
 
       - name: 🚀 Release.
-        uses: akhileshns/heroku-deploy@v3.11.10
+        uses: amondnet/vercel-action@v20
         with:
-          buildpack: "https://github.com/lstoll/heroku-buildpack-monorepo -i 1"
-          heroku_email: ${{secrets.HEROKU_API_KEY}}
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-        env:
-          HD_APP_BASE: "apps/server"
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod "
 
-      # - name: Release Web Client
-      #   uses: akhileshns/heroku-deploy@v3.0.4
+      # - name: 🚀 Release.
+      #   uses: akhileshns/heroku-deploy@v3.11.10
       #   with:
-      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-      #     heroku_app_name: "web-client-02092020"
+      #     buildpack: "https://github.com/lstoll/heroku-buildpack-monorepo -i 1"
       #     heroku_email: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
       #   env:
-      #     HD_APP_BASE: "src/web-client"
-      #     HD_REACT_APP_API_URL: "https://api-02092020.herokuapp.com"
+      #     HD_APP_BASE: "apps/server"

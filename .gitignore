@@ -1,5 +1,6 @@
 .env
 
+out/
 dist/
 .next/
 
@@ -8,3 +9,4 @@ uploads/
 node_modules
 
 .vercel
+
