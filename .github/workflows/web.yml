@@ -1,0 +1,40 @@
+name: 🎉 Deploy web.
+
+on:
+  push:
+    branches:
+      - develop
+
+    paths:
+      - "core/**"
+      - "apps/web"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel previous runs.
+        uses: technote-space/auto-cancel-redundant-job@v1
+
+      - name: 🚚 Remove origin.
+        uses: actions/checkout@v2.3.2
+      
+      - name: Get yarn cache path.
+        id: yarn-cache-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache yarn.
+        uses: actions/cache@v2
+        with:
+          path: |
+            '**/node_modules'
+            ${{ steps.yarn-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-flow-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flow-cache-
+
+      - name: Setup node 14.
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
