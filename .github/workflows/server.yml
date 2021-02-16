@@ -37,7 +37,7 @@ jobs:
       - name: Setup node 14.
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
 
       - name: 🔧 Install deps and run build packages.
         if: ${{ success() }}
@@ -50,13 +50,13 @@ jobs:
       - name: 🚀 Release.
         uses: akhileshns/heroku-deploy@v3.11.10
         with:
-          appdir: "dist/"
+          # appdir: "apps/server"
           buildpack: "https://github.com/lstoll/heroku-buildpack-monorepo -i 1"
           heroku_email: ${{secrets.HEROKU_API_KEY}}
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
         env:
-          HD_APP_BASE: "apps/app"
+          HD_APP_BASE: "apps/server"
 
       # - name: Release Web Client
       #   uses: akhileshns/heroku-deploy@v3.0.4
