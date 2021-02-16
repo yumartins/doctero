@@ -55,6 +55,8 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
         env:
           HD_APP_BASE: "apps/app"
+        appdir: "dist/"
+        buildpack: "https://github.com/lstoll/heroku-buildpack-monorepo -i 1"
 
       # - name: Release Web Client
       #   uses: akhileshns/heroku-deploy@v3.0.4
