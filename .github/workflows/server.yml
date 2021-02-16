@@ -50,7 +50,7 @@ jobs:
       - name: 🚀 Release.
         uses: akhileshns/heroku-deploy@v3.11.10
         with:
-          # appdir: "apps/server"
+          appdir: "apps/server"
           buildpack: "https://github.com/lstoll/heroku-buildpack-monorepo -i 1"
           heroku_email: ${{secrets.HEROKU_API_KEY}}
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
