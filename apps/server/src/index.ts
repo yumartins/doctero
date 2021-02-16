@@ -1,9 +1,10 @@
-import dotenv from 'dotenv';
 import cors from '@koa/cors';
+import dotenv from 'dotenv';
 import Koa from 'koa';
 import paser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import { join } from 'path';
+
 import { errors } from './middlewares';
 import router from './routes';
 
