@@ -5,7 +5,7 @@
   "author": "Yuri Martins",
   "private": false,
   "scripts": {
-    "build": "babel src/ knexfile.ts --out-dir ./dist -D --extensions '.ts,.tsx' --copy-files --no-copy-ignored",
+    "build": "npx babel src/ knexfile.ts --out-dir ./dist -D --extensions '.ts,.tsx' --copy-files --no-copy-ignored",
     "server": "ts-node-dev --ignore-watch node_modules src/index.ts",
     "restart": "yarn knex:migrate:rollback --all; knex:migrate:latest; knex:seed:run",
     "knex:seed:run": "knex seed:run --knexfile knexfile.ts",
