@@ -47,12 +47,21 @@ jobs:
         if: ${{ success() }}
         run: yarn build:apps
 
-      - name: 🚀 Deploy production.
-        uses: amondnet/vercel-action@v20
-        # if: github.event_name == 'push'
+      - name: 🚀 Release.
+        uses: akhileshns/heroku-deploy@v3.11.10
         with:
-          vercel-args: '--prod'
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          # github-token: ${{ secrets.GITHUB_TOKEN }} 
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          heroku_email: ${{secrets.HEROKU_API_KEY}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+        env:
+          HD_APP_BASE: "apps/app"
+
+      # - name: Release Web Client
+      #   uses: akhileshns/heroku-deploy@v3.0.4
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "web-client-02092020"
+      #     heroku_email: ${{secrets.HEROKU_API_KEY}}
+      #   env:
+      #     HD_APP_BASE: "src/web-client"
+      #     HD_REACT_APP_API_URL: "https://api-02092020.herokuapp.com"
