@@ -23,7 +23,7 @@ app
   .use(helmet())
   .use(errors)
   .use(paser({ jsonLimit: '2mb' }))
-  .use(serve(`${__dirname}/uploads`))
+  .use(mount('/attachments', serve('./uploads')))
   .use(policy({ enableWarn: false, 'default-src': ['self'] }))
   .use(swaggerUi.serve)
   .use(convert(mount('/docs', swaggerUi.setup(swagger))))
