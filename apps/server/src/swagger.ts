@@ -5,11 +5,12 @@ import swagger from 'swagger-jsdoc';
 dotenv.config({ path: join(__dirname, '../../../.env') });
 
 const options = {
-  swaggerDefinition: {
-    openapi: '3.0.1',
+  definition: {
+    openapi: '3.0.2',
     info: {
-      title: 'Hello World',
+      title: 'Doctero.',
       version: '0.0.1',
+      description: 'Documentation.',
     },
     servers: [
       { url: 'http://localhost:3333' },
