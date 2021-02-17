@@ -1,6 +1,6 @@
+import dotenv from 'dotenv';
 import JWT from 'jsonwebtoken';
 import { Context } from 'koa';
-import dotenv from 'dotenv';
 import { join } from 'path';
 
 import Forbidden from './forbidden';
