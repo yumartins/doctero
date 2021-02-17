@@ -1,6 +1,8 @@
 import multer from '@koa/multer';
 import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
+// import { koaSwagger } from 'koa2-swagger-ui';
+// import yml from 'yamljs';
 
 import {
   me,
@@ -20,6 +22,10 @@ import {
 const router = new Router<DefaultState, Context>();
 
 const upload = multer({ storage, limits }).single('attachment');
+
+// const spec = yml.load('src/docs/users.yml');
+
+// router.get('/docs', koaSwagger({ routePrefix: '/docs', swaggerOptions: { spec } }));
 
 /**
  * Auth.

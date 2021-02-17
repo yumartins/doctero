@@ -5,9 +5,9 @@ on:
     branches:
       - develop
 
-    # paths:
-    #   - "core/**"
-    #   - "apps/server"
+    paths:
+      - "core/**"
+      - "apps/server"
 
 jobs:
   deploy:
@@ -50,18 +50,7 @@ jobs:
       - name: 🚀 Release.
         uses: amondnet/vercel-action@v20
         with:
-          # github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: "--prod "
-
-      # - name: 🚀 Release.
-      #   uses: akhileshns/heroku-deploy@v3.11.10
-      #   with:
-      #     buildpack: "https://github.com/lstoll/heroku-buildpack-monorepo -i 1"
-      #     heroku_email: ${{secrets.HEROKU_API_KEY}}
-      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-      #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-      #   env:
-      #     HD_APP_BASE: "apps/server"
