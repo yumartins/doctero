@@ -8,9 +8,9 @@ import { getToken, verifyToken } from '../auth';
 const secret = process.env.APP_SECRET || '';
 
 /**
- * Authenticaded Middlewares
+ * Authenticated Middlewares
  */
-const authenticaded = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+const authenticated = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
   const token = getToken(ctx);
 
   /**
@@ -23,4 +23,4 @@ const authenticaded = async (ctx: Context, next: () => Promise<void>): Promise<v
   return next();
 };
 
-export default authenticaded;
+export default authenticated;

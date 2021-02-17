@@ -11,5 +11,5 @@ export {
 } from './validations';
 
 export {
-  default as authenticaded,
+  default as authenticated,
 } from './auth';

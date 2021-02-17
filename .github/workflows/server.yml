@@ -4,11 +4,7 @@ on:
   push:
     branches:
       - develop
-
-    paths:
-      - "core/**"
-      - "apps/server"
-
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest

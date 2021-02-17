@@ -1,8 +1,6 @@
 import multer from '@koa/multer';
 import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
-// import { koaSwagger } from 'koa2-swagger-ui';
-// import yml from 'yamljs';
 
 import {
   me,
@@ -16,16 +14,12 @@ import { limits, storage } from './helpers';
 import {
   roles,
   validations,
-  authenticaded,
+  authenticated,
 } from './middlewares';
 
 const router = new Router<DefaultState, Context>();
 
 const upload = multer({ storage, limits }).single('attachment');
-
-// const spec = yml.load('src/docs/users.yml');
-
-// router.get('/docs', koaSwagger({ routePrefix: '/docs', swaggerOptions: { spec } }));
 
 /**
  * Auth.
@@ -36,37 +30,37 @@ router.post('/signup', signup);
 /**
  * User logged in.
  */
-router.get('/me', authenticaded, me.show);
-router.put('/me', authenticaded, me.update);
-router.post('/me/media', authenticaded, upload, me.media);
-router.delete('/me', authenticaded, me.delete);
+router.get('/me', authenticated, me.show);
+router.put('/me', authenticated, me.update);
+router.post('/me/media', authenticated, upload, me.media);
+router.delete('/me', authenticated, me.delete);
 
 /**
  * Users.
  */
-router.get('/users', authenticaded, roles, users.list);
-router.post('/users', authenticaded, roles, users.create);
-router.get('/users/:id', authenticaded, roles, users.show);
-router.put('/users/:id', authenticaded, roles, users.update);
-router.delete('/users/:id', authenticaded, roles, users.delete);
+router.get('/users', authenticated, roles, users.list);
+router.post('/users', authenticated, roles, users.create);
+router.get('/users/:id', authenticated, roles, users.show);
+router.put('/users/:id', authenticated, roles, users.update);
+router.delete('/users/:id', authenticated, roles, users.delete);
 
 /**
  * Clients.
  */
-router.get('/clients', authenticaded, clients.list);
-router.get('/clients/:id', authenticaded, clients.show);
-router.put('/clients/:id', authenticaded, roles, validations, clients.update);
-router.post('/clients', authenticaded, roles, validations, clients.create);
-router.post('/clients/:id/media', authenticaded, roles, upload, clients.media);
-router.delete('/clients/:id', authenticaded, roles, clients.delete);
+router.get('/clients', authenticated, clients.list);
+router.get('/clients/:id', authenticated, clients.show);
+router.put('/clients/:id', authenticated, roles, validations, clients.update);
+router.post('/clients', authenticated, roles, validations, clients.create);
+router.post('/clients/:id/media', authenticated, roles, upload, clients.media);
+router.delete('/clients/:id', authenticated, roles, clients.delete);
 
 /**
  * Products.
  */
-router.get('/products', authenticaded, validations, products.list);
-router.get('/products/:id', authenticaded, validations, products.show);
-router.put('/products/:id', authenticaded, roles, validations, products.update);
-router.post('/products', authenticaded, roles, validations, products.create);
-router.delete('/products/:id', authenticaded, roles, validations, products.delete);
+router.get('/products', authenticated, validations, products.list);
+router.get('/products/:id', authenticated, validations, products.show);
+router.put('/products/:id', authenticated, roles, validations, products.update);
+router.post('/products', authenticated, roles, validations, products.create);
+router.delete('/products/:id', authenticated, roles, validations, products.delete);
 
 export default router;
