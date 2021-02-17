@@ -5,7 +5,7 @@
   "author": "Yuri Martins",
   "private": false,
   "scripts": {
-    "build": "babel src/ knexfile.ts --out-dir ./dist -D --extensions '.ts,.tsx' --copy-files --no-copy-ignored",
+    "build": "babel src/ knexfile.ts -d ./dist -D --extensions '.ts,.tsx' && mkdirp ./dist/uploads",
     "server": "ts-node-dev --ignore-watch node_modules src/index.ts",
     "restart": "yarn knex:migrate:rollback --all; knex:migrate:latest; knex:seed:run",
     "knex:seed:run": "knex seed:run --knexfile knexfile.ts",
@@ -51,6 +51,7 @@
     "@types/koa__multer": "^2.0.2",
     "@types/koa__router": "^8.0.4",
     "@types/swagger-jsdoc": "^6.0.0",
+    "mkdirp": "^1.0.4",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1"
   }
