@@ -12,9 +12,6 @@ const options = {
       version: '0.0.1',
       description: 'Documentation.',
     },
-    servers: [
-      { url: 'http://localhost:3333' },
-    ],
     components: {
       securitySchemes: {
         bearerAuth: {
