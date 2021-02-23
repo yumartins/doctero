@@ -17,7 +17,7 @@ import {
   authenticated,
 } from './middlewares';
 
-const router = new Router<DefaultState, Context>();
+const router = new Router<DefaultState, Context>({ prefix: '/api' });
 
 const upload = multer({ storage, limits }).single('attachment');
 
