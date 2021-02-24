@@ -2,17 +2,15 @@ import cors from '@koa/cors';
 import dotenv from 'dotenv';
 import Koa from 'koa';
 import paser from 'koa-bodyparser';
-import convert from 'koa-convert';
 import policy from 'koa-csp';
 import helmet from 'koa-helmet';
 import mount from 'koa-mount';
 import serve from 'koa-static';
+import { koaSwagger } from 'koa2-swagger-ui';
 import { join } from 'path';
-import swaggerUi from 'swagger-ui-koa';
 
 import { errors } from './middlewares';
 import router from './routes';
-import swagger from './swagger';
 
 dotenv.config({ path: join(__dirname, '../../../.env') });
 
@@ -25,8 +23,12 @@ app
   .use(paser({ jsonLimit: '2mb' }))
   .use(mount('/attachments', serve('./uploads')))
   .use(policy({ enableWarn: false, 'default-src': ['self'] }))
-  .use(swaggerUi.serve)
-  .use(convert(mount('/docs', swaggerUi.setup(swagger))))
+  .use(koaSwagger({
+    routePrefix: '/api/docs',
+    swaggerOptions: {
+      url: `${process.env.API_URL}/api/docs/swagger-json`,
+    },
+  }))
   .use(router.routes())
   .use(router.allowedMethods());
 

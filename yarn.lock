@@ -2288,6 +2288,20 @@
     "@types/koa-compose" "*"
     "@types/node" "*"
 
+"@types/koa@^2.11.6":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.13.0.tgz#6356c48521c0941103b6fcfb97bb01426a99d56d"
+  integrity sha512-hNs1Z2lX+R5sZroIy/WIGbPlH/719s/Nd5uIjSIAdHn9q+g7z6mxOnhwMjK1urE4/NUP0SOoYUOD4MnvD9FRNw==
+  dependencies:
+    "@types/accepts" "*"
+    "@types/content-disposition" "*"
+    "@types/cookies" "*"
+    "@types/http-assert" "*"
+    "@types/http-errors" "*"
+    "@types/keygrip" "*"
+    "@types/koa-compose" "*"
+    "@types/node" "*"
+
 "@types/koa__cors@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/koa__cors/-/koa__cors-3.0.2.tgz#578917ffca964e98f5e9849996ae1eeda7c15704"
@@ -6708,6 +6722,16 @@ koa-static@^5.0.0:
   dependencies:
     debug "^3.1.0"
     koa-send "^5.0.0"
+
+koa2-swagger-ui@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/koa2-swagger-ui/-/koa2-swagger-ui-5.0.5.tgz#19bd95a099bf05f4aa8213df0f175933b62f4055"
+  integrity sha512-GpkiMghci0koi4a7t5UgsEDiTjGSwJxDjCDoAsbZMuPf3pnTaXaHAQqGFDldtD5xQyOV8OSR61DdwgVvqmfTjg==
+  dependencies:
+    "@types/koa" "^2.11.6"
+    handlebars "^4.7.6"
+    lodash "^4.17.20"
+    read-pkg-up "^7.0.1"
 
 koa@^2.13.1:
   version "2.13.1"

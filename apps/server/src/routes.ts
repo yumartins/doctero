@@ -4,6 +4,7 @@ import { DefaultState, Context } from 'koa';
 
 import {
   me,
+  docs,
   auth,
   users,
   signup,
@@ -20,6 +21,11 @@ import {
 const router = new Router<DefaultState, Context>({ prefix: '/api' });
 
 const upload = multer({ storage, limits }).single('attachment');
+
+/**
+ * Swagger.
+ */
+router.get('/docs/swagger-json', docs);
 
 /**
  * Auth.

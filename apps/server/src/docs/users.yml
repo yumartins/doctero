@@ -1,5 +1,0 @@
-/users:
-  get:
-    description: List users.
-    responses:
-      $ref: '#/responses'
