@@ -3,10 +3,11 @@ import * as Yup from 'yup';
 
 import { validation } from '../helpers';
 
-const auth = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
+const users = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
   const schema = {
     email: Yup.string().required('The email is required.'),
-    password: Yup.string().required('Password required.'),
+    role_id: Yup.number().required('Permission is mandatory.'),
+    document: Yup.string().required('Document is required.'),
   };
 
   await validation(ctx, schema);
@@ -14,4 +15,4 @@ const auth = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
   await next();
 };
 
-export default auth;
+export default users;

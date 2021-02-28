@@ -3,7 +3,7 @@ export interface User {
   name: string,
   email: string,
   phone?: string,
-  avatar?: string | null | never,
+  avatar?: string | null,
   role_id: number | null,
   address?: string,
   company?: string,

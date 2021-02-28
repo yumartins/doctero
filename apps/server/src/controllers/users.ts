@@ -1,4 +1,5 @@
 import { bcrypt, remove } from '@core/helpers';
+import { User } from '@types';
 import { Context } from 'koa';
 
 import knex from '../database';
@@ -6,11 +7,12 @@ import knex from '../database';
 const users = {
   list: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
+      id,
+      company_id,
+    } = ctx.state.user as User;
 
     await knex('users')
-      .where({ company_id: user.company_id || user.id })
+      .where({ company_id: company_id || id })
       .returning('*')
       .then((us) => {
         const usered = us.map(({ password, ...rest }) => rest);
@@ -19,24 +21,20 @@ const users = {
       });
   },
 
-  show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  show: async (ctx: Context): Promise<void> => {
     const {
       id,
     } = ctx.params;
 
-    const logged = await knex('users').where({ id }).first();
+    const logged = await knex<User>('users').where({ id }).first();
 
-    ctx.body = remove('password', logged);
+    ctx.body = remove('password', logged || {});
   },
 
-  create: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  create: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
+      id,
+    } = ctx.state.user as User;
 
     const {
       name,
@@ -47,21 +45,11 @@ const users = {
       birthday,
       document,
       password,
-    } = ctx.request.body;
-
-    /**
-     * Required email.
-     */
-    if (! email) ctx.throw(400, 'The email is required.');
-
-    /**
-     * Required document.
-     */
-    if (! document) ctx.throw(400, 'The document is required (CPF or CNPJ).');
+    } = ctx.request.body as User;
 
     const hash = await bcrypt.hash(password);
 
-    const created = await knex('users').where({ email }).orWhere({ document });
+    const created = await knex<User>('users').where({ email }).orWhere({ document });
 
     /**
      * Checks if the email or document is
@@ -80,11 +68,11 @@ const users = {
         email,
         phone,
         address,
-        role_id: role_id || 2,
+        role_id,
         document,
         birthday,
         password: hash,
-        company_id: user.id,
+        company_id: id,
       })
       .returning('*')
       .then((us) => {
@@ -94,9 +82,7 @@ const users = {
       });
   },
 
-  update: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  update: async (ctx: Context): Promise<void> => {
     const {
       id,
     } = ctx.params;
@@ -109,14 +95,14 @@ const users = {
       role_id,
       password,
       birthday,
-    } = ctx.request.body;
+    } = ctx.request.body as User;
 
-    const created = await knex('users').where({ id }).first();
-    const database = email && await knex('users').where({ email }).first();
+    const created = await knex<User>('users').where({ id }).first();
+    const database = email ? await knex<User>('users').where({ email }).first() : null;
 
-    if (email === database?.email && email !== created.email) ctx.throw(400, 'Registered user.');
+    if (email === database?.email && email !== created?.email) ctx.throw(400, 'Registered user.');
 
-    const hash = password ? await bcrypt.hash(password) : created.password;
+    const hash = password ? await bcrypt.hash(password) : created?.password;
 
     await knex('users')
       .update({
@@ -135,16 +121,14 @@ const users = {
       });
   },
 
-  delete: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  delete: async (ctx: Context): Promise<void> => {
     const {
       id,
     } = ctx.params;
 
-    const user = await knex('users').where({ id }).first();
+    const user = await knex<User>('users').where({ id }).first();
 
-    if (user.company_id === null) ctx.throw(400, 'This user cannot be deleted.');
+    if (user?.company_id === null) ctx.throw(400, 'This user cannot be deleted.');
 
     await knex('users')
       .where({ id })

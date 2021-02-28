@@ -19,6 +19,7 @@ import {
 } from './middlewares';
 import {
   vAuth,
+  vUsers,
 } from './validators';
 
 const router = new Router<DefaultState, Context>({ prefix: '/api' });
@@ -48,7 +49,7 @@ router.delete('/me', authenticated, me.delete);
  * Users.
  */
 router.get('/users', authenticated, roles, users.list);
-router.post('/users', authenticated, roles, users.create);
+router.post('/users', authenticated, roles, vUsers, users.create);
 router.get('/users/:id', authenticated, roles, users.show);
 router.put('/users/:id', authenticated, roles, users.update);
 router.delete('/users/:id', authenticated, roles, users.delete);
