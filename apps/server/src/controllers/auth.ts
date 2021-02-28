@@ -18,13 +18,7 @@ const auth = async (ctx: Context): Promise<void> => {
 
   if (! match) ctx.throw(401, 'Incorrect password.');
 
-  const token = generate({
-    id: user.id,
-    email,
-    role_id: user.role_id,
-    password: user.password,
-    company_id: user.company_id,
-  });
+  const token = generate(user);
 
   ctx.status = 200;
 

@@ -5,27 +5,17 @@ import knex from '../database';
 import { unlink, attachment } from '../helpers';
 
 const me = {
-  show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  show: async (ctx: Context): Promise<void> => {
     const {
       user,
     } = ctx.state;
 
-    const {
-      id,
-    } = user;
-
-    const logged = await knex('users').where({ id }).first();
-
     ctx.status = 200;
 
-    ctx.body = remove('password', { ...logged, avatar: logged?.avatar ? attachment(logged.avatar) : null });
+    ctx.body = remove('password', { ...user, avatar: user?.avatar ? attachment(user.avatar) : null });
   },
 
-  media: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  media: async (ctx: Context): Promise<void> => {
     const {
       user,
     } = ctx.state;
@@ -48,9 +38,7 @@ const me = {
     ctx.status = 200;
   },
 
-  update: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  update: async (ctx: Context): Promise<void> => {
     const {
       user,
     } = ctx.state;
@@ -90,9 +78,7 @@ const me = {
       });
   },
 
-  delete: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  delete: async (ctx: Context): Promise<void> => {
     const {
       user,
     } = ctx.state;
