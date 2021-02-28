@@ -17,6 +17,9 @@ import {
   validations,
   authenticated,
 } from './middlewares';
+import {
+  vAuth,
+} from './validators';
 
 const router = new Router<DefaultState, Context>({ prefix: '/api' });
 
@@ -30,7 +33,7 @@ router.get('/docs/swagger-json', docs);
 /**
  * Auth.
  */
-router.post('/auth', auth);
+router.post('/auth', vAuth, auth);
 router.post('/signup', signup);
 
 /**

@@ -1,19 +1,14 @@
 import { bcrypt } from '@core/helpers';
-import { ExtendableContext } from 'koa';
+import { Context } from 'koa';
 
 import { generate } from '../auth';
 import knex from '../database';
 
-const auth = async (ctx: ExtendableContext, next: () => Promise<void>): Promise<void> => {
-  await next();
-
+const auth = async (ctx: Context): Promise<void> => {
   const {
     email,
     password,
   } = ctx.request.body;
-
-  if (! email) ctx.throw(422, 'Email required.');
-  if (! password) ctx.throw(422, 'Password required.');
 
   const user = await knex('users').where({ email }).first();
 
