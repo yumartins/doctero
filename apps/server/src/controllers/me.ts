@@ -1,4 +1,5 @@
 import { bcrypt, remove } from '@core/helpers';
+import { User } from '@types';
 import { Context } from 'koa';
 
 import knex from '../database';
@@ -7,22 +8,19 @@ import { unlink, attachment } from '../helpers';
 const me = {
   show: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
+      avatar,
+      ...user
+    } = ctx.state.user as User;
 
     ctx.status = 200;
 
-    ctx.body = remove('password', { ...user, avatar: user?.avatar ? attachment(user.avatar) : null });
+    ctx.body = remove('password', { ...user, avatar: avatar ? attachment(avatar) : null });
   },
 
   media: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
-
-    const {
       id,
-    } = user;
+    } = ctx.state.user as User;
 
     /**
      * Check if you are sending an attachment.
@@ -40,8 +38,9 @@ const me = {
 
   update: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
+      id,
+      ...user
+    } = ctx.state.user as User;
 
     const {
       name,
@@ -51,10 +50,10 @@ const me = {
       company,
       password,
       birthday,
-    } = ctx.request.body;
+    } = ctx.request.body as User;
 
-    if (email) {
-      const database = await knex('users').where({ email }).first();
+    if (email && email !== user.email) {
+      const database = await knex<User>('users').where({ email }).first();
 
       if (email === database?.email) ctx.throw(400, 'Registered user.');
     }
@@ -71,7 +70,7 @@ const me = {
         birthday,
         password: hash,
       })
-      .where({ id: user.id })
+      .where({ id })
       .returning('*')
       .then((usered) => {
         ctx.body = remove('password', usered[0]);
@@ -80,13 +79,9 @@ const me = {
 
   delete: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
-
-    const {
       id,
       company_id,
-    } = user;
+    } = ctx.state.user as User;
 
     if (company_id === null) ctx.throw(400, 'This user cannot be deleted.');
 

@@ -1,4 +1,5 @@
 import { bcrypt } from '@core/helpers';
+import { Auth } from '@types';
 import { Context } from 'koa';
 
 import { generate } from '../auth';
@@ -8,7 +9,7 @@ const auth = async (ctx: Context): Promise<void> => {
   const {
     email,
     password,
-  } = ctx.request.body;
+  } = ctx.request.body as Auth;
 
   const user = await knex('users').where({ email }).first();
 

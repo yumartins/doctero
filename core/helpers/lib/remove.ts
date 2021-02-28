@@ -1,4 +1,4 @@
-const remove = (key: string, object: Record<string, never>): Record<string, never> => {
+const remove = (key: string, object: Record<string, any>): Record<string, any> => {
   const {
     [key]: _, //eslint-disable-line
     ...rest
