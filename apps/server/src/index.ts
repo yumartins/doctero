@@ -6,9 +6,9 @@ import policy from 'koa-csp';
 import helmet from 'koa-helmet';
 import mount from 'koa-mount';
 import serve from 'koa-static';
-import { koaSwagger } from 'koa2-swagger-ui';
 import { join } from 'path';
 
+import { swagger } from './configs';
 import { errors } from './middlewares';
 import router from './routes';
 
@@ -23,12 +23,7 @@ app
   .use(paser({ jsonLimit: '2mb' }))
   .use(mount('/attachments', serve('./uploads')))
   .use(policy({ enableWarn: false, 'default-src': ['self'] }))
-  .use(koaSwagger({
-    routePrefix: '/api/docs',
-    swaggerOptions: {
-      url: `${process.env.API_URL}/api/docs/swagger-json`,
-    },
-  }))
+  .use(swagger)
   .use(router.routes())
   .use(router.allowedMethods());
 

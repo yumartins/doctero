@@ -3,7 +3,5 @@ export {
 } from './unlink';
 
 export {
-  limits,
-  storage,
-  attachment,
-} from './attachments';
+  default as attachment,
+} from './attachment';

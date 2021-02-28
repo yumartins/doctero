@@ -2,6 +2,7 @@ import multer from '@koa/multer';
 import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
 
+import { limits, storage } from './configs';
 import {
   me,
   docs,
@@ -11,7 +12,6 @@ import {
   clients,
   products,
 } from './controllers';
-import { limits, storage } from './helpers';
 import {
   roles,
   validations,

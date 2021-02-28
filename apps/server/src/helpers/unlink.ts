@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { promisify } from 'util';
 
-import { attachment } from './attachments';
+import attachment from './attachment';
 
 const promise = promisify(fs.unlink);
 

@@ -5,6 +5,9 @@
   "version": "0.0.1",
   "private": false,
   "license": "MIT",
+  "dependencies": {
+    "core-js": "3.9.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.8",

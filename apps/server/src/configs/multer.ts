@@ -1,9 +1,6 @@
 import { diskStorage } from '@koa/multer';
 import crypto from 'crypto-js';
-import dotenv from 'dotenv';
 import { join } from 'path';
-
-dotenv.config({ path: join(__dirname, '../../../../.env') });
 
 /**
  * Upload file storage path.
@@ -32,8 +29,3 @@ export const limits = {
   fields: 10,
   fileSize: 500 * 1024,
 };
-
-/**
- * Absolute path attachment.
- */
-export const attachment = (path: string): string => `${process.env.API_URL}/attachments/${path}`;
