@@ -1,15 +1,14 @@
 import { Context } from 'koa';
-import * as Yup from 'yup';
 
-import { validation } from '../helpers';
+import { schemas, validation } from '../helpers';
 
 const auth = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-  const schema = {
-    email: Yup.string().required('The email is required.'),
-    password: Yup.string().required('Password required.'),
-  };
+  const {
+    email,
+    password,
+  } = schemas;
 
-  await validation(ctx, schema);
+  await validation(ctx, { email, password });
 
   await next();
 };
