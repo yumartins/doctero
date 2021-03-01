@@ -18,13 +18,13 @@ const signup = async (ctx: Context): Promise<void> => {
 
   const hash = await bcrypt.hash(password);
 
-  const created = await knex('users').where({ email }).orWhere({ document });
+  const created = await knex<User>('users').where({ email }).orWhere({ document });
 
   /**
    * Checks if the email or document is
    * already registered in the database.
    */
-  created.map((us) => {
+  created?.map((us) => {
     if (us.email === email) ctx.throw(400, 'Registered user.');
     if (us.document === document) ctx.throw(400, 'Registered document.');
 

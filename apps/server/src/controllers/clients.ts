@@ -90,13 +90,6 @@ const clients = {
       birthday,
     } = ctx.request.body;
 
-    /**
-     * Required.
-     */
-    if (! name) ctx.throw(400, 'Name is required.');
-    if (! email) ctx.throw(400, 'The email is required.');
-    if (! document) ctx.throw(400, 'The document is required.');
-
     const created = await knex('users').where({ email }).orWhere({ document });
 
     /**

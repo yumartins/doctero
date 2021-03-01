@@ -9,3 +9,7 @@ export {
 export {
   default as vSignup,
 } from './signup';
+
+export {
+  default as vClients,
+} from './clients';

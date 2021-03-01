@@ -21,6 +21,7 @@ import {
   vAuth,
   vUsers,
   vSignup,
+  vClients,
 } from './validators';
 
 const router = new Router<DefaultState, Context>({ prefix: '/api' });
@@ -61,7 +62,7 @@ router.delete('/users/:id', authenticated, roles, users.delete);
 router.get('/clients', authenticated, clients.list);
 router.get('/clients/:id', authenticated, clients.show);
 router.put('/clients/:id', authenticated, roles, validations, clients.update);
-router.post('/clients', authenticated, roles, validations, clients.create);
+router.post('/clients', authenticated, roles, validations, vClients, clients.create);
 router.post('/clients/:id/media', authenticated, roles, upload, clients.media);
 router.delete('/clients/:id', authenticated, roles, clients.delete);
 

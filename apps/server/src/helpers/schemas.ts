@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 const schemas = {
+  name: Yup.string().required('The name is required.'),
   email: Yup.string().required('The email is required.'),
   role_id: Yup.number().required('Permission is mandatory.'),
   company: Yup.string().required('Company name is required.'),
