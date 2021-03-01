@@ -5,3 +5,7 @@ export type {
 export type {
   User,
 } from './user';
+
+export type {
+  Client,
+} from './client';

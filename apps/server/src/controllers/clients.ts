@@ -1,3 +1,4 @@
+import { User, Client } from '@types';
 import { Context } from 'koa';
 
 import knex from '../database';
@@ -6,45 +7,37 @@ import { unlink, attachment } from '../helpers';
 const clients = {
   list: async (ctx: Context): Promise<void> => {
     const {
-      user,
-    } = ctx.state;
-
-    const {
       id,
       company_id,
-    } = user;
+    } = ctx.state.user as User;
 
-    await knex('clients')
+    await knex<Client>('clients')
       .where({ company_id: company_id || id })
       .returning('*')
       .then((us) => {
-        const users = us?.map((item) => ({
+        const client = us?.map((item) => ({
           ...item,
           avatar: item?.avatar ? attachment(item.avatar) : null,
         }));
 
-        ctx.body = users;
+        ctx.body = client;
       });
   },
 
-  show: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  show: async (ctx: Context): Promise<void> => {
     const {
       id,
     } = ctx.params;
 
-    const product = await knex('clients').where({ id }).first();
+    const client = await knex<Client>('clients').where({ id }).first();
 
     ctx.body = {
-      ...product,
-      avatar: product?.avatar ? attachment(product.avatar) : null,
+      ...client,
+      avatar: client?.avatar ? attachment(client.avatar) : null,
     };
   },
 
-  media: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
+  media: async (ctx: Context): Promise<void> => {
     const {
       id,
     } = ctx.params;
@@ -54,7 +47,7 @@ const clients = {
      */
     if (! ctx.file) ctx.throw(400, 'Send an attachment.');
 
-    await knex('clients')
+    await knex<Client>('clients')
       .update({
         avatar: ctx.file.filename,
       })
@@ -63,23 +56,14 @@ const clients = {
     ctx.status = 200;
   },
 
-  create: async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-    await next();
-
-    const {
-      user,
-    } = ctx.state;
-
-    const {
-      type,
-    } = ctx.query;
-
+  create: async (ctx: Context): Promise<void> => {
     const {
       id,
       company_id,
-    } = user;
+    } = ctx.state.user as User;
 
     const {
+      type,
       name,
       note,
       email,
@@ -88,9 +72,9 @@ const clients = {
       company,
       document,
       birthday,
-    } = ctx.request.body;
+    } = ctx.request.body as Client;
 
-    const created = await knex('users').where({ email }).orWhere({ document });
+    const created = await knex<User>('users').where({ email }).orWhere({ document });
 
     /**
      * Checks if the email or document is
@@ -103,7 +87,7 @@ const clients = {
       return null;
     });
 
-    await knex('clients')
+    await knex<Client>('clients')
       .insert({
         type,
         name,
