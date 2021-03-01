@@ -20,6 +20,7 @@ import {
 import {
   vAuth,
   vUsers,
+  vSignup,
 } from './validators';
 
 const router = new Router<DefaultState, Context>({ prefix: '/api' });
@@ -35,7 +36,7 @@ router.get('/docs/swagger-json', docs);
  * Auth.
  */
 router.post('/auth', vAuth, auth);
-router.post('/signup', signup);
+router.post('/signup', vSignup, signup);
 
 /**
  * User logged in.
@@ -49,9 +50,9 @@ router.delete('/me', authenticated, me.delete);
  * Users.
  */
 router.get('/users', authenticated, roles, users.list);
-router.post('/users', authenticated, roles, vUsers, users.create);
 router.get('/users/:id', authenticated, roles, users.show);
 router.put('/users/:id', authenticated, roles, users.update);
+router.post('/users', authenticated, roles, vUsers, users.create);
 router.delete('/users/:id', authenticated, roles, users.delete);
 
 /**

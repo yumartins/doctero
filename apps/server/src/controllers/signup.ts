@@ -1,11 +1,10 @@
 import { bcrypt, remove } from '@core/helpers';
+import { User } from '@types';
 import { Context } from 'koa';
 
 import knex from '../database';
 
-const signup = async (ctx: Context, next: () => Promise<void>): Promise<void> => {
-  await next();
-
+const signup = async (ctx: Context): Promise<void> => {
   const {
     name,
     email,
@@ -15,7 +14,7 @@ const signup = async (ctx: Context, next: () => Promise<void>): Promise<void> =>
     birthday,
     document,
     password,
-  } = ctx.request.body;
+  } = ctx.request.body as User;
 
   const hash = await bcrypt.hash(password);
 
@@ -31,15 +30,6 @@ const signup = async (ctx: Context, next: () => Promise<void>): Promise<void> =>
 
     return null;
   });
-  /**
-   * Company required.
-   */
-  if (! company) ctx.throw(400, 'Company name is required.');
-
-  /**
-   * Required document.
-   */
-  if (! document) ctx.throw(400, 'The document is required (CPF or CNPJ).');
 
   await knex('users')
     .insert({
