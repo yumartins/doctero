@@ -7,6 +7,7 @@
   "exclude": [
     "dist",
     "node_modules",
+    "jest.config.js"
   ],
   "compilerOptions": {
     "jsx": "preserve",
@@ -41,7 +42,7 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "esModuleInterop": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
