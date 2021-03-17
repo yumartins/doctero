@@ -1,4 +1,4 @@
-import * as Knex from 'knex';
+import { Knex } from 'knex';
 
 exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('roles', (table) => {
   table.increments('id').primary();

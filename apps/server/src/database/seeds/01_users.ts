@@ -1,5 +1,5 @@
 import { bcrypt } from '@core/helpers';
-import * as Knex from 'knex';
+import { Knex } from 'knex';
 
 exports.seed = async (knex: Knex): Promise<void> => {
   await knex('users').del();

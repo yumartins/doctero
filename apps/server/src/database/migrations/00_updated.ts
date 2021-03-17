@@ -1,4 +1,4 @@
-import * as Knex from 'knex';
+import { Knex } from 'knex';
 
 const CUSTOM_FUNCTIONS = `
 CREATE OR REPLACE FUNCTION on_update_timestamp()
