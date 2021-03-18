@@ -7,10 +7,6 @@ export {
 } from './errors';
 
 export {
-  default as upload,
-} from './multer';
-
-export {
   default as validations,
 } from './validations';
 

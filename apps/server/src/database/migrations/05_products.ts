@@ -9,9 +9,10 @@ exports.up = async (knex: Knex): Promise<void> => knex.schema.createTable('produ
   table.text('name').notNullable();
   table.text('brand');
 
-  table.text('unity');
   table.text('photos');
   table.text('description');
+
+  table.integer('unity').notNullable();
 
   table.integer('min_stock').notNullable();
   table.integer('max_stock').notNullable();

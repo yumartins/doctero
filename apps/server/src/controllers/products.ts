@@ -1,3 +1,4 @@
+import { Service, Product } from '@types';
 import { Context } from 'koa';
 
 import knex from '../database';
@@ -78,14 +79,14 @@ const products = {
       sale_price,
       description,
       inital_stock,
-    } = ctx.request.body;
+    } = ctx.request.body as Product;
 
     if (! name) ctx.throw(400, 'Name is required.');
 
     if (! sale_price) ctx.throw(400, 'Sale price is required.');
 
     if (type === 'SERVICES') {
-      await knex('services')
+      await knex<Service>('services')
         .insert({
           sku,
           name,
@@ -104,7 +105,7 @@ const products = {
     }
 
     if (type === 'PRODUCTS') {
-      await knex('products')
+      await knex<Product>('products')
         .insert({
           sku,
           name,
@@ -153,10 +154,10 @@ const products = {
       sale_price,
       description,
       inital_stock,
-    } = ctx.request.body;
+    } = ctx.request.body as Product;
 
     if (type === 'SERVICES') {
-      await knex('services')
+      await knex<Service>('services')
         .update({
           sku,
           name,
@@ -175,7 +176,7 @@ const products = {
     }
 
     if (type === 'PRODUCTS') {
-      await knex('products')
+      await knex<Product>('products')
         .update({
           sku,
           name,
