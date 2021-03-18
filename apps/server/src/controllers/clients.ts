@@ -133,7 +133,7 @@ const clients = {
       address,
       company,
       birthday,
-    } = ctx.request.body;
+    } = ctx.request.body as Client;
 
     const created = await knex('users').where({ email }).first();
 

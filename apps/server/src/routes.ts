@@ -1,8 +1,6 @@
-import multer from '@koa/multer';
 import Router from '@koa/router';
 import { DefaultState, Context } from 'koa';
 
-import { limits, storage } from './configs';
 import {
   me,
   docs,
@@ -14,6 +12,7 @@ import {
 } from './controllers';
 import {
   roles,
+  upload,
   validations,
   authenticated,
 } from './middlewares';
@@ -25,8 +24,6 @@ import {
 } from './validators';
 
 const router = new Router<DefaultState, Context>({ prefix: '/api' });
-
-const upload = multer({ storage, limits }).single('attachment');
 
 /**
  * Swagger.

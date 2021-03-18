@@ -1,7 +1,7 @@
 import cors from '@koa/cors';
 import dotenv from 'dotenv';
 import Koa from 'koa';
-import paser from 'koa-bodyparser';
+import parser from 'koa-bodyparser';
 import policy from 'koa-csp';
 import helmet from 'koa-helmet';
 import mount from 'koa-mount';
@@ -20,7 +20,7 @@ app
   .use(cors())
   .use(helmet())
   .use(errors)
-  .use(paser({ jsonLimit: '2mb' }))
+  .use(parser({ jsonLimit: '2mb' }))
   .use(mount('/attachments', serve('./uploads')))
   .use(policy({ enableWarn: false, 'default-src': ['self'] }))
   .use(swagger)
