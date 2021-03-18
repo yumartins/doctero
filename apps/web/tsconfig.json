@@ -10,5 +10,6 @@
   ],
   "compilerOptions": {
     "strict": false,
+    "isolatedModules": true
   }
 }
