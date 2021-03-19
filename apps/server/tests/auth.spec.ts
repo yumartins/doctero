@@ -1,15 +1,25 @@
+import {
+  it,
+  expect,
+  describe,
+  afterAll,
+} from '@jest/globals';
 import request from 'supertest';
 
-import app from '../src/app';
+import app from '../src';
 
 describe('Testing authentication scenarios.', () => {
   it('logged user data and status 200 must be returned', async () => {
-    const res = await request(app).get('/users').send({
-      email: 'yuri@estudioflow.com.br',
-      password: '123456',
-    });
+    const res = await request(app)
+      .post('/api/auth')
+      .send({
+        email: 'yuri@estudioflow.com.br',
+        password: '123456',
+      });
 
     expect(res.status).toEqual(200);
-    expect(res.body).toHaveProperty('id');
+    expect(res.body).toHaveProperty('token');
   });
+
+  afterAll(async (done) => app.close(done));
 });
