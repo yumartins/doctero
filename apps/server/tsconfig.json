@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "noImplicitAny": false,
     "typeRoots": [
+      "koa.d.ts",
       "./node_modules/@types"
     ]
   }

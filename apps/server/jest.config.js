@@ -1,12 +1,6 @@
-const { join } = require('path');
-
-const package = require('./package.json');
-const baseConfig = require('../../jest.config');
-
-delete baseConfig.projects
+const { name } = require('./package.json');
 
 module.exports = {
-  ...baseConfig,
-  displayName: package.name,
-  testMatch: [join(__dirname, 'tests/*.spec.{ts,tsx}')],
+  name,
+  displayName: name,
 }

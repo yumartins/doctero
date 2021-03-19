@@ -17,8 +17,8 @@ dotenv.config({ path: join(__dirname, '../../../.env') });
 const app = new Koa();
 
 app.use(cors());
-app.use(helmet());
 app.use(errors);
+app.use(helmet());
 app.use(body({ jsonLimit: '2mb' }));
 app.use(mount('/attachments', serve('./uploads')));
 app.use(policy({ enableWarn: false, 'default-src': ['self'] }));
